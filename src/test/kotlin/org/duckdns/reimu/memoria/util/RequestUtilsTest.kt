@@ -5,13 +5,28 @@ import org.junit.jupiter.api.Test
 
 internal class RequestUtilsTest {
     @Test
-    fun jsoupTest() {
-        val url = "https://www.youtube.com/watch?v=F1lu_LUnGpE"
+    fun jsoupTest1() {
+        val url = "https://www.youtube.com/watch?v=sFoWYa6QNKk&list=LL&index=79"
         val musicDto = RequestUtils.makeMusicFrom(url)
 
-        assertEquals(194, musicDto.length)
-        assertEquals("【オリジナルMV】『 魔法少女とチョコレゐト / Magical Girl and Chocolate 』歌ってみた【ver.えむ子まる】", musicDto.title)
-        assertEquals("えむ子まるchannel", musicDto.artist)
-        assertEquals("2022-04-02", musicDto.uploaded.toString())
+        assertEquals(123, musicDto.length)
+        assertEquals("https://www.youtube.com/watch?v=sFoWYa6QNKk", musicDto.url)
+        assertEquals("『ぎゅって』feat. 初音ミク", musicDto.title)
+        assertEquals("MIMI", musicDto.artist)
+        assertEquals("2022-04-23", musicDto.uploaded.toString())
+        assertEquals("https://i.ytimg.com/vi/sFoWYa6QNKk/hqdefault.jpg", musicDto.thumbnailUrl)
+    }
+
+    @Test
+    fun jsoupTest2() {
+        val url = "https://www.youtube.com/watch?v=sFoWYa6QNKk"
+        val musicDto = RequestUtils.makeMusicFrom(url)
+
+        assertEquals(123, musicDto.length)
+        assertEquals("https://www.youtube.com/watch?v=sFoWYa6QNKk", musicDto.url)
+        assertEquals("『ぎゅって』feat. 初音ミク", musicDto.title)
+        assertEquals("MIMI", musicDto.artist)
+        assertEquals("2022-04-23", musicDto.uploaded.toString())
+        assertEquals("https://i.ytimg.com/vi/sFoWYa6QNKk/hqdefault.jpg", musicDto.thumbnailUrl)
     }
 }
