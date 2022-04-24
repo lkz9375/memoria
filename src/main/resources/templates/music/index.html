@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>🎵music | Reimu Server</title>
+</head>
+<body>
+    <div th:each="music: ${musicList}" style="display: inline-block">
+        <div style="width:192px; height:108px; overflow:hidden;">
+            <a th:href="${music.url}">
+                <img th:src="${music.thumbnailUrl}" alt="thumbnail" style="width:192px; height:144px; margin: -18px 0 -18px 0;">
+            </a>
+        </div>
+    </div>
+</body>
+</html>
