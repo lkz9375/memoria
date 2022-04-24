@@ -7,12 +7,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-#  mvc:
-#    static-path-pattern: /static/**
-#    web:
-#      resources:
-#        static-locations: classpath:/static/
-#        add-mappings: true
+  mvc:
+    static-path-pattern: /static/**
 
 ---
 spring:
