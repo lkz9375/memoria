@@ -6,10 +6,11 @@ import java.time.LocalDate
 
 class RequestUtils {
     companion object {
-        fun makeMusicFrom(url: String): MusicDto {
-            val document = Jsoup.connect(url).get()
+        fun makeMusicFrom(rawUrl: String): MusicDto {
+            val document = Jsoup.connect(rawUrl).get()
             val div = document.getElementsByClass("watch-main-col")[0]
 
+            lateinit var url: String
             lateinit var thumbnailUrl: String
             lateinit var title: String
             lateinit var artist: String
@@ -17,15 +18,19 @@ class RequestUtils {
             var length = 0
 
             div.childNodes().forEach { child ->
-                val content = child.attr("content")
                 when (child.attr("itemprop")) {
-                    "name" -> title = content
-                    "thumbnailUrl" -> thumbnailUrl = content
-                    "datePublished" -> uploaded = LocalDate.parse(content)
+                    "url" -> url = child.attr("href")
+                    "name" -> title = child.attr("content")
+                    "thumbnailUrl" -> {
+                        val rawThumbnailUrl = child.attr("href")
+                        val thumbnailUrlRegex = """(.*/)""".toRegex()
+                        thumbnailUrl = thumbnailUrlRegex.find(rawThumbnailUrl)!!.value + "hqdefault.jpg"
+                    }
+                    "datePublished" -> uploaded = LocalDate.parse(child.attr("content"))
 
                     "duration" -> {
                         val lengthRegex = """PT(\d+)M(\d+)S""".toRegex()
-                        val (min, sec) = lengthRegex.find(content)!!.destructured
+                        val (min, sec) = lengthRegex.find(child.attr("content"))!!.destructured
                         length = min.toInt() * 60 + sec.toInt()
                     }
 
