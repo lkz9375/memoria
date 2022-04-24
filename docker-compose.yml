@@ -26,10 +26,6 @@ services:
     depends_on:
       - database
     container_name: memoria
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/memoria
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 1234
     networks:
       - yunetwork
 
