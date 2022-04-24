@@ -10,7 +10,9 @@ class Music(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
+    @Column(unique = true)
     val url: String,
+
     val thumbnailUrl: String,
     val title: String,
     val artist: String,
