@@ -17,7 +17,7 @@ services:
   application:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.raspberry
     restart: always
     ports:
       - "8081:8080"
