@@ -5,6 +5,11 @@
     <title>🎵music | Reimu Server</title>
 </head>
 <body>
+    <h1>요약</h1>
+    <div th:text="'현재 ' + ${musicList.size()} + '개의 노래가 있습니다.'"></div>
+    <div th:text="'모두 듣는다면 ' + ${length / 60} + '분 ' + ${length % 60} + '초가 소요됩니다.'"></div>
+
+    <h1>노래 리스트</h1>
     <div th:each="music: ${musicList}" style="display: inline-block">
         <div style="width:192px; height:108px; overflow:hidden;">
             <a th:href="${music.url}">

@@ -16,7 +16,9 @@ class MusicController(
         model: Model
     ): String {
         val musicList = musicService.getList()
+        val totalLength = musicList.sumOf { music -> music.length }
         model.addAttribute("musicList", musicList)
+        model.addAttribute("length", totalLength)
 
         return "music/index"
     }
