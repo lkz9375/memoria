@@ -12,7 +12,7 @@ class MusicService(
     private val musicRepository: MusicRepository,
 ) {
     fun getList(): List<Music> {
-        return musicRepository.findAll()
+        return musicRepository.findAllByOrderByIdDesc()
     }
 
     @Transactional
