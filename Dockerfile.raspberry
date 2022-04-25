@@ -1,16 +1,23 @@
-FROM adoptopenjdk:16-jdk-hotspot AS builder
+# build
+FROM arm64v8/gradle:7.4.2-jdk17 AS builder
 
-COPY gradlew .
-COPY settings.gradle.kts .
-COPY build.gradle.kts .
-COPY gradle gradle
-COPY src src
-RUN chmod +x ./gradlew
-RUN ./gradlew bootJar
+RUN mkdir -p /app
+WORKDIR /app
 
-FROM arm64v8/openjdk:18-slim
+COPY . .
 
-RUN mkdir /opt/app
-COPY --from=builder build/libs/*.jar /opt/app/memoria.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/opt/app/memoria.jar"]
+ENV GRADLE_OPTS -Dkotlin.compiler.execution.strategy="in-process"
+
+RUN gradle bootJar --no-daemon
+
+FROM arm64v8/adoptopenjdk:16-jre
+
+RUN mkdir /app
+
+COPY --from=builder /app/memoria/build/libs/memoria-0.0.1-SNAPSHOT.jar /app
+
+ENTRYPOINT [                              \
+    "java",                               \
+    "-jar",                               \
+    "/app/memoria-0.0.1-SNAPSHOT.jar"     \
+]
