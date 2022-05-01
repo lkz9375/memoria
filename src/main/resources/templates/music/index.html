@@ -1,21 +1,45 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>🎵music | Reimu Server</title>
+  <meta charset="UTF-8">
+  <title>music | Reimu Server</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/images/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/images/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/images/ico/favicon-16x16.png">
+  <link rel="manifest" href="/static/images/ico/site.webmanifest">
 </head>
 <body>
-    <h1>요약</h1>
-    <div th:text="'현재 ' + ${musicList.size()} + '개의 노래가 있습니다.'"></div>
-    <div th:text="'모두 듣는다면 ' + ${length / 86400} + '일 ' + ${length % 86400 / 3600} + '시간 ' + ${length % 3600 / 60} + '분 ' + ${length % 60} + '초가 소요됩니다.'"></div>
+<div style="padding: 10px 10px 10px 10px">
+  <a th:href="@{/music}" style="margin-right: 20px">홈</a>
+  <a th:href="@{/music/songs}" style="margin-right: 20px">노래 리스트</a>
+</div>
 
-    <h1>노래 리스트</h1>
-    <div th:each="music: ${musicList}" style="display: inline-block">
-        <div style="width:192px; height:108px; overflow:hidden;">
-            <a th:href="${music.url}">
-                <img th:src="${music.thumbnailUrl}" alt="thumbnail" style="width:192px; height:144px; margin: -18px 0 -18px 0;">
-            </a>
-        </div>
-    </div>
+<figure style="width: 620px; height: 860px; line-height: 0; margin: 0; text-align: center; display: inline-block; vertical-align: top; position: relative;">
+  <img src="/static/images/reimu-home.jpg" alt="reimu" width="620px" height="860px">
+  <figcaption style="color: #ffffff; background: rgba(55, 55, 55, 0.5); padding: 1em; line-height: 1; position: absolute; width: 100%; bottom: 0;">https://twitter.com/Ri0177/status/1459453597553356801</figcaption>
+</figure>
+
+<div style="display: inline-block; vertical-align: top; padding-left: 20px;">
+  <h1>대충 소개글</h1>
+  <p>
+    안녕하세요, 현재 여러 애니/보카로/우타이테 오픈채팅방에서 활동하고 있는 <a href="https://open.kakao.com/me/rei_mu">Reimu</a>입니다.<br>
+    그냥 심심해서 제가 듣는 보카로/우타이테 노래를 모으는 사이트를 만들어 보았습니다.
+  </p>
+  <p>
+    뭔가 있었으면 하는 기능들의 제보는 언제든지 받습니다.<br>
+    편하게 갠톡 걸어주시면 참고해서 반영하도록 하겠습니다(물론 반영되지 않을 수도 있습니다).
+  </p>
+
+  <h1>업데이트 로그</h1>
+  <ul>
+    <li>2022-05-01: DB 테이블 추가</li>
+    <li>2022-04-30: 페이지 동선 설계 및 다듬기</li>
+    <li>2022-04-25: 배포 환경 구축</li>
+    <li>2022-04-24: 추가한 노래의 썸네일만 보여주는 페이지 제작</li>
+    <li>2022-04-23: 간단하게 PoC 후 프로토타입 작성</li>
+    <li>2022-04-16: 프로젝트 개시</li>
+  </ul>
+</div>
+
 </body>
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>singers | Reimu Server</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/images/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/images/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/images/ico/favicon-16x16.png">
+  <link rel="manifest" href="/static/images/ico/site.webmanifest">
+</head>
+<body>
+<div style="padding: 10px 10px 10px 10px">
+  <a th:href="@{/music}" style="margin-right: 20px">홈</a>
+  <a th:href="@{/music/songs}" style="margin-right: 20px">노래 리스트</a>
+</div>
+
+<h1>요약</h1>
+<div th:text="'현재 ' + ${singerList.size()} + '명의 가수가 있습니다.'"></div>
+<div th:text="'앗, 그 중에 ' + ${robotCount} + '명은 사람이 아니라 기계예요 😅'"></div>
+
+<h1>가수 리스트</h1>
+<div th:each="singer: ${singerList}" style="display: inline-block; width: 225px;">
+  <a th:href="@{'/music/singer/' + ${singer.id}}" th:text="${singer.nameKorean}"></a>
+</div>
+</body>
+</html>

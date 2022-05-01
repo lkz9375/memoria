@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>songs | Reimu Server</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/images/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/images/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/images/ico/favicon-16x16.png">
+  <link rel="manifest" href="/static/images/ico/site.webmanifest">
+</head>
+<body>
+<div style="padding: 10px 10px 10px 10px">
+  <a th:href="@{/music}" style="margin-right: 20px">홈</a>
+  <a th:href="@{/music/songs}" style="margin-right: 20px">노래 리스트</a>
+</div>
+
+<h1>요약</h1>
+<div th:text="'현재 ' + ${musicList.size()} + '개의 노래가 있습니다.'"></div>
+<div th:text="'모두 듣는다면 ' + ${length / 86400} + '일 ' + ${length % 86400 / 3600} + '시간 ' + ${length % 3600 / 60} + '분 ' + ${length % 60} + '초가 소요됩니다.'"></div>
+
+<h1>노래 리스트</h1>
+<div th:each="music: ${musicList}" style="display: inline-block; vertical-align: top; width: 250px;">
+  <div style="padding: 10px 10px 10px 10px">
+    <div style="width:192px; height:108px; overflow:hidden; margin: 10px auto 10px auto;">
+      <img th:src="${music.thumbnailUrl}" alt="thumbnail" style="width:192px; height:144px; margin: -18px 0 -18px 0;">
+    </div>
+    제목: <a th:href="${music.url}" th:text="${music.titleKorean}"></a><br>
+    길이: <span th:text="${music.length / 60} + '분 ' + ${music.length % 60} + '초'"></span>
+  </div>
+</div>
+</body>
+</html>
