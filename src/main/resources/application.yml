@@ -21,6 +21,11 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: none
+  devtools:
+    livereload:
+      enabled: true
+  thymeleaf:
+    cache: false
 
 server:
   port: 8081
