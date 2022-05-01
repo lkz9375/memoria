@@ -1,58 +1,35 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>music | Reimu Server</title>
-  <link rel="apple-touch-icon" sizes="57x57" href="/static/favicon/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/static/favicon/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/static/favicon/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="/static/favicon/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/static/favicon/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/static/favicon/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/static/favicon/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/static/favicon/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192"  href="/static/favicon/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="/static/favicon/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/static/favicon/manifest.json">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="msapplication-TileImage" content="/static/favicon/ms-icon-144x144.png">
-  <meta name="theme-color" content="#ffffff">
-</head>
-<body>
-<div style="padding: 10px 10px 10px 10px">
-  <a th:href="@{/music}" style="margin-right: 20px">홈</a>
-  <a th:href="@{/music/songs}" style="margin-right: 20px">노래 리스트</a>
-</div>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{music/layout/default_layout}">
 
-<figure style="width: 620px; height: 860px; line-height: 0; margin: 0; text-align: center; display: inline-block; vertical-align: top; position: relative;">
-  <img src="/static/images/reimu-home.jpg" alt="reimu" width="620px" height="860px">
-  <figcaption style="color: #ffffff; background: rgba(55, 55, 55, 0.5); padding: 1em; line-height: 1; position: absolute; width: 100%; bottom: 0;">https://twitter.com/Ri0177/status/1459453597553356801</figcaption>
-</figure>
+<th:block layout:fragment="content">
+  <figure style="width: 620px; height: 860px; line-height: 0; margin: 0; text-align: center; display: inline-block; vertical-align: top; position: relative;">
+    <img src="/static/images/reimu-home.jpg" alt="reimu" width="620px" height="860px">
+    <figcaption style="color: #ffffff; background: rgba(55, 55, 55, 0.5); padding: 1em; line-height: 1; position: absolute; width: 100%; bottom: 0;">https://twitter.com/Ri0177/status/1459453597553356801</figcaption>
+  </figure>
 
-<div style="display: inline-block; vertical-align: top; padding-left: 20px;">
-  <h1>대충 소개글</h1>
-  <p>
-    안녕하세요, 현재 여러 애니/보카로/우타이테 오픈채팅방에서 활동하고 있는 <a href="https://open.kakao.com/me/rei_mu">Reimu</a>입니다.<br>
-    그냥 심심해서 제가 듣는 보카로/우타이테 노래를 모으는 사이트를 만들어 보았습니다.
-  </p>
-  <p>
-    뭔가 있었으면 하는 기능들의 제보는 언제든지 받습니다.<br>
-    편하게 갠톡 걸어주시면 참고해서 반영하도록 하겠습니다(물론 반영되지 않을 수도 있습니다).
-  </p>
+  <div style="display: inline-block; vertical-align: top; padding-left: 20px;">
+    <h1>대충 소개글</h1>
+    <p>
+      안녕하세요, 현재 여러 애니/보카로/우타이테 오픈채팅방에서 활동하고 있는 <a href="https://open.kakao.com/me/rei_mu">Reimu</a>입니다.<br>
+      그냥 심심해서 제가 듣는 보카로/우타이테 노래를 모으는 사이트를 만들어 보았습니다.
+    </p>
+    <p>
+      뭔가 있었으면 하는 기능들의 제보는 언제든지 받습니다.<br>
+      편하게 갠톡 걸어주시면 참고해서 반영하도록 하겠습니다(물론 반영되지 않을 수도 있습니다).
+    </p>
 
-  <h1>업데이트 로그</h1>
-  <ul>
-    <li>2022-05-01: DB 테이블 추가</li>
-    <li>2022-04-30: 페이지 동선 설계 및 다듬기</li>
-    <li>2022-04-25: 배포 환경 구축</li>
-    <li>2022-04-24: 추가한 노래의 썸네일만 보여주는 페이지 제작</li>
-    <li>2022-04-23: 간단하게 PoC 후 프로토타입 작성</li>
-    <li>2022-04-16: 프로젝트 개시</li>
-  </ul>
-</div>
+    <h1>업데이트 로그</h1>
+    <ul>
+      <li>2022-05-01: DB 테이블 추가</li>
+      <li>2022-04-30: 페이지 동선 설계 및 다듬기</li>
+      <li>2022-04-25: 배포 환경 구축</li>
+      <li>2022-04-24: 추가한 노래의 썸네일만 보여주는 페이지 제작</li>
+      <li>2022-04-23: 간단하게 PoC 후 프로토타입 작성</li>
+      <li>2022-04-16: 프로젝트 개시</li>
+    </ul>
+  </div>
+</th:block>
 
-</body>
 </html>

@@ -5,6 +5,7 @@ import org.duckdns.reimu.memoria.service.SingerService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
@@ -14,7 +15,10 @@ class MusicController(
     private val singerService: SingerService,
 ) {
     @GetMapping("")
-    fun index(): String {
+    fun index(
+        model: Model
+    ): String {
+        model.addAttribute("title", "Home")
         return "music/index"
     }
 
@@ -25,6 +29,7 @@ class MusicController(
         val musicList = musicService.getList()
         val totalLength = musicList.sumOf { music -> music.length }
 
+        model.addAttribute("title", "Songs")
         model.addAttribute("musicList", musicList)
         model.addAttribute("length", totalLength)
 
@@ -38,6 +43,7 @@ class MusicController(
         val singerList = singerService.getList()
         val robotCount = singerList.count { it.isRobot }
 
+        model.addAttribute("title", "Singers")
         model.addAttribute("singerList", singerList)
         model.addAttribute("robotCount", robotCount)
 

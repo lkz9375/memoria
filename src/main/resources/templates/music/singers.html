@@ -1,39 +1,17 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>singers | Reimu Server</title>
-  <link rel="apple-touch-icon" sizes="57x57" href="/static/favicon/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="/static/favicon/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="/static/favicon/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="/static/favicon/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="/static/favicon/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="/static/favicon/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="/static/favicon/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="/static/favicon/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192"  href="/static/favicon/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="/static/favicon/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/static/favicon/manifest.json">
-  <meta name="msapplication-TileColor" content="#ffffff">
-  <meta name="msapplication-TileImage" content="/static/favicon/ms-icon-144x144.png">
-  <meta name="theme-color" content="#ffffff">
-</head>
-<body>
-<div style="padding: 10px 10px 10px 10px">
-  <a th:href="@{/music}" style="margin-right: 20px">홈</a>
-  <a th:href="@{/music/songs}" style="margin-right: 20px">노래 리스트</a>
-</div>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{music/layout/default_layout}">
 
-<h1>요약</h1>
-<div th:text="'현재 ' + ${singerList.size()} + '명의 가수가 있습니다.'"></div>
-<div th:text="'앗, 그 중에 ' + ${robotCount} + '명은 사람이 아니라 기계예요 😅'"></div>
+<th:block layout:fragment="content">
+  <h1>요약</h1>
+  <div th:text="'현재 ' + ${singerList.size()} + '명의 가수가 있습니다.'"></div>
+  <div th:text="'앗, 그 중에 ' + ${robotCount} + '명은 사람이 아니라 기계예요 😅'"></div>
 
-<h1>가수 리스트</h1>
-<div th:each="singer: ${singerList}" style="display: inline-block; width: 225px;">
-  <a th:href="@{'/music/singer/' + ${singer.id}}" th:text="${singer.nameKorean}"></a>
-</div>
-</body>
+  <h1>가수 리스트</h1>
+  <div th:each="singer: ${singerList}" style="display: inline-block; width: 225px;">
+    <a th:href="@{'/music/singer/' + ${singer.id}}" th:text="${singer.nameKorean}"></a>
+  </div>
+</th:block>
+
 </html>
