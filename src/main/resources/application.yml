@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   mvc:
     static-path-pattern: /static/**
 
@@ -17,6 +17,10 @@ spring:
       on-profile: local
   datasource:
     url: jdbc:mysql://localhost:3307/memoria
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
 
 server:
   port: 8081
