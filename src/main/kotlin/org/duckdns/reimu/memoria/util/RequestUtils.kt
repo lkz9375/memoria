@@ -44,7 +44,8 @@ class RequestUtils {
                 site = Site.YOUTUBE,
                 title = title,
                 length = length,
-                uploaded = uploaded
+                uploaded = uploaded,
+                thumbnailUrl = "https://i.ytimg.com/vi/$urlId/hqdefault.jpg",
             )
         }
 
@@ -55,6 +56,7 @@ class RequestUtils {
             lateinit var urlId: String
             lateinit var title: String
             lateinit var uploaded: LocalDate
+            lateinit var thumbnailUrl: String
             var length = 0
 
             head.childNodes().forEach { child ->
@@ -65,6 +67,10 @@ class RequestUtils {
                 when (child.attr("property")) {
                     "og:title" -> title = child.attr("content")
                     "video:duration" -> length = child.attr("content").toInt()
+                    "og:image" -> {
+                        val thumbnailUrlRegex = """.+?(thumbnails/.+?)\.original""".toRegex()
+                        thumbnailUrl = "https://nicovideo.cdn.nimg.jp/" + thumbnailUrlRegex.find(child.attr("content"))!!.groupValues[1]
+                    }
                     "og:url" -> {
                         val urlIdRegex = """(sm\d+)$""".toRegex()
                         urlId = urlIdRegex.find(child.attr("content"))!!.groupValues[0]
@@ -82,7 +88,8 @@ class RequestUtils {
                 site = Site.NICOVIDEO,
                 title = title,
                 length = length,
-                uploaded = uploaded
+                uploaded = uploaded,
+                thumbnailUrl = thumbnailUrl,
             )
         }
     }

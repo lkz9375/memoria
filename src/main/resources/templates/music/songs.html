@@ -13,11 +13,17 @@
     <div style="padding: 10px 10px 10px 10px">
       <div style="width:192px; height:106px; overflow:hidden; margin: 10px auto 10px auto;">
         <a th:href="@{'/music/song/' + ${music.id}}">
-          <img th:src="${music.thumbnailUrl}" alt="thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
+          <img th:if="${music.isYoutube()}" th:src="${music.thumbnailUrl}" alt="thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
+          <img th:if="${!music.isYoutube()}" th:src="${music.thumbnailUrl} + '.L'" th:data-thumbnail="${music.thumbnailUrl}" onerror="this.src = this.getAttribute('data-thumbnail');" alt="thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
         </a>
       </div>
-      제목: <a th:href="${music.url}" th:text="${music.titleKorean}"></a><br>
+      제목: <a th:href="${music.url}" th:text="${music.titleKorean}"></a>
+      <img th:if="${!music.isYoutube()}" src="https://nicovideo.cdn.nimg.jp/web/images/favicon/32.png" width="20" height="20" alt="nicovideo">
+      <img th:if="${music.isYoutube()}" src="https://www.youtube.com/s/desktop/fc7b0168/img/favicon_32x32.png" width="20" height="20" alt="youtube">
+      <br>
       길이: <span th:text="${music.length / 60} + '분 ' + ${music.length % 60} + '초'"></span>
+      <br>
+      업로드: <span th:text="${music.uploaded}"></span>
     </div>
   </div>
 </th:block>

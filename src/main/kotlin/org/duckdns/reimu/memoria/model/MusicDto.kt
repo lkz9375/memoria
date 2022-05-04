@@ -12,6 +12,7 @@ data class MusicDto(
     val title: String,
     val length: Int,
     val uploaded: LocalDate,
+    val thumbnailUrl: String,
 ) {
     fun toEntity() = Music(
         parentId = parentId,
@@ -20,6 +21,7 @@ data class MusicDto(
         title = title,
         titleKorean = titleKorean,
         length = length,
-        uploaded = uploaded
+        uploaded = uploaded,
+        thumbnailUrl = thumbnailUrl,
     )
 }

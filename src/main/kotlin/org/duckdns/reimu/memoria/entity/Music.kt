@@ -26,6 +26,7 @@ class Music(
     var titleKorean: String,
     var length: Int,
     var uploaded: LocalDate,
+    val thumbnailUrl: String,
 ) {
     val url: String
         get() = when (site) {
@@ -33,9 +34,5 @@ class Music(
             else -> "https://www.nicovideo.jp/watch/$urlId"
         }
 
-    val thumbnailUrl: String
-        get() = when (site) {
-            Site.YOUTUBE -> "https://i.ytimg.com/vi/$urlId/hqdefault.jpg"
-            else -> "https://nicovideo.cdn.nimg.jp/thumbnails/${urlId.substring(2)}/${urlId.substring(2)}"
-        }
+    fun isYoutube() = site == Site.YOUTUBE
 }
