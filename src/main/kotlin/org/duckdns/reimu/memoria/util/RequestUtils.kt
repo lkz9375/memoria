@@ -49,7 +49,41 @@ class RequestUtils {
         }
 
         private fun makeMusicFromNicovideo(rawUrl: String): MusicDto {
-            TODO("작성 해야 댐")
+            val document = Jsoup.connect(rawUrl).get()
+            val head = document.getElementsByTag("head")[0]
+
+            lateinit var urlId: String
+            lateinit var title: String
+            lateinit var uploaded: LocalDate
+            var length = 0
+
+            head.childNodes().forEach { child ->
+                if (child.nodeName() != "meta") {
+                    return@forEach
+                }
+
+                when (child.attr("property")) {
+                    "og:title" -> title = child.attr("content")
+                    "video:duration" -> length = child.attr("content").toInt()
+                    "og:url" -> {
+                        val urlIdRegex = """(sm\d+)$""".toRegex()
+                        urlId = urlIdRegex.find(child.attr("content"))!!.groupValues[0]
+                    }
+                    "video:release_date" -> {
+                        val uploadedRegex = """^(\d+)-(\d+)-(\d+)T""".toRegex()
+                        val (year, month, day) = uploadedRegex.find(child.attr("content"))!!.destructured
+                        uploaded = LocalDate.of(year.toInt(), month.toInt(), day.toInt())
+                    }
+                }
+            }
+
+            return MusicDto(
+                urlId = urlId,
+                site = Site.NICOVIDEO,
+                title = title,
+                length = length,
+                uploaded = uploaded
+            )
         }
     }
 }
