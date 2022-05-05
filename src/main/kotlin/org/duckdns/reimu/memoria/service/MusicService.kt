@@ -19,6 +19,10 @@ class MusicService(
         return musicRepository.findAllByOrderByIdDesc()
     }
 
+    fun get(musicId: Long): Music {
+        return musicRepository.getById(musicId)
+    }
+
     @Transactional
     fun add(addMusicParam: AddMusicParam): Music {
         val musicDto = RequestUtils.makeMusicFrom(addMusicParam.url)

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{music/layout/default_layout}">
+
+<th:block layout:fragment="content">
+  <h1>동영상</h1>
+  <iframe width="560" height="315" th:src="${music.embedTag}" title="video player" style="border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  <h1>노래 정보</h1>
+  <ul>
+    <li>
+      <strong>가수: </strong>
+      <span th:each="singer: ${singerList}">
+        <span th:text="${singer.getNameKorean()}"></span>
+      </span>
+    </li>
+    <li>
+      <strong>원제목: </strong>
+      <span th:text="${music.title}"></span>
+    </li>
+    <li>
+      <strong>제목: </strong>
+      <span th:text="${music.titleKorean}"></span>
+    </li>
+    <li>
+      <strong>길이: </strong>
+      <span th:text="${music.length / 60} + '분 ' + ${music.length % 60} + '초'"></span>
+    </li>
+    <li>
+      <strong>업로드 날짜: </strong>
+      <span th:text="${music.uploaded}"></span>
+    </li>
+  </ul>
+</th:block>
+
+</html>

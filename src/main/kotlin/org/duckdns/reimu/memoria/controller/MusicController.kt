@@ -36,6 +36,20 @@ class MusicController(
         return "music/songs"
     }
 
+    @GetMapping("/song/{musicId}")
+    fun getMusicDetail(
+        @PathVariable(name = "musicId") musicId: Long = 0,
+        model: Model
+    ): String {
+        val music = musicService.get(musicId)
+        val singerList = singerService.getSingersByMusic(music)
+
+        model.addAttribute("music", music)
+        model.addAttribute("singerList", singerList)
+
+        return "music/songDetail"
+    }
+
     @GetMapping("/singers")
     fun getSingerList(
         model: Model

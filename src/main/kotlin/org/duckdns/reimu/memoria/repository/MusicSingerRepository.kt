@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface MusicSingerRepository : JpaRepository<MusicSinger, Long>
+interface MusicSingerRepository : JpaRepository<MusicSinger, Long> {
+    fun findAllByMusicId(musicId: Long): List<MusicSinger>
+}

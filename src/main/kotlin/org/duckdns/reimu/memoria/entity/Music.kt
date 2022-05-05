@@ -34,5 +34,11 @@ class Music(
             else -> "https://www.nicovideo.jp/watch/$urlId"
         }
 
+    val embedTag: String
+        get() = when (site) {
+            Site.YOUTUBE -> "https://www.youtube.com/embed/$urlId"
+            else -> "https://embed.nicovideo.jp/watch/$urlId"
+        }
+
     fun isYoutube() = site == Site.YOUTUBE
 }
