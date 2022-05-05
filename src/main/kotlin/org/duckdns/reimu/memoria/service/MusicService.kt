@@ -7,7 +7,9 @@ import org.duckdns.reimu.memoria.model.param.UpdateMusicParam
 import org.duckdns.reimu.memoria.repository.MusicRepository
 import org.duckdns.reimu.memoria.repository.MusicSingerRepository
 import org.duckdns.reimu.memoria.util.RequestUtils
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import javax.persistence.EntityNotFoundException
 import javax.transaction.Transactional
 
 @Service
@@ -20,7 +22,8 @@ class MusicService(
     }
 
     fun get(musicId: Long): Music {
-        return musicRepository.getById(musicId)
+        return musicRepository.findByIdOrNull(musicId)
+            ?: throw EntityNotFoundException("Unable to find org.duckdns.reimu.memoria.entity.Music with id $musicId")
     }
 
     @Transactional

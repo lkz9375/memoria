@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{music/layout/default_layout}">
+
+<th:block layout:fragment="content">
+  <h1 th:text="${errorMessage.title}"></h1>
+  <p th:text="${errorMessage.body}"></p>
+</th:block>
+
+</html>
