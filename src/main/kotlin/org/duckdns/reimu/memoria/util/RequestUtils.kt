@@ -4,9 +4,14 @@ import org.duckdns.reimu.memoria.enum.Site
 import org.duckdns.reimu.memoria.model.MusicDto
 import org.jsoup.Jsoup
 import java.time.LocalDate
+import javax.servlet.http.HttpServletRequest
 
 class RequestUtils {
     companion object {
+        fun getIpAddress(request: HttpServletRequest): String {
+            return request.getHeader("X-FORWARDED-FOR") ?: request.remoteAddr
+        }
+
         fun makeMusicFrom(rawUrl: String): MusicDto {
             return when {
                 "youtu" in rawUrl -> makeMusicFromYoutube(rawUrl)
@@ -72,7 +77,7 @@ class RequestUtils {
                         thumbnailUrl = "https://nicovideo.cdn.nimg.jp/" + thumbnailUrlRegex.find(child.attr("content"))!!.groupValues[1]
                     }
                     "og:url" -> {
-                        val urlIdRegex = """(sm\d+)$""".toRegex()
+                        val urlIdRegex = """([^/]+)$""".toRegex()
                         urlId = urlIdRegex.find(child.attr("content"))!!.groupValues[0]
                     }
                     "video:release_date" -> {

@@ -4,34 +4,62 @@
       layout:decorate="~{music/layout/default_layout}">
 
 <th:block layout:fragment="content">
-  <h1>동영상</h1>
-  <iframe width="560" height="315" th:src="${music.embedTag}" title="video player" style="border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <div style="display: inline-block;">
+    <h1>동영상</h1>
+    <iframe width="560" height="315" th:src="${music.embedTag}" title="video player" style="border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-  <h1>노래 정보</h1>
-  <ul>
-    <li>
-      <strong>가수: </strong>
-      <span th:each="singer: ${singerList}">
+    <h1>노래 정보</h1>
+    <ul>
+      <li>
+        <strong>가수: </strong>
+        <span th:each="singer: ${singerList}">
         <span th:text="${singer.getNameKorean()}"></span>
       </span>
-    </li>
-    <li>
-      <strong>원제목: </strong>
-      <span th:text="${music.title}"></span>
-    </li>
-    <li>
-      <strong>제목: </strong>
-      <span th:text="${music.titleKorean}"></span>
-    </li>
-    <li>
-      <strong>길이: </strong>
-      <span th:text="${music.length / 60} + '분 ' + ${music.length % 60} + '초'"></span>
-    </li>
-    <li>
-      <strong>업로드: </strong>
-      <span th:text="${music.uploaded}"></span>
-    </li>
-  </ul>
+      </li>
+      <li>
+        <strong>원제목: </strong>
+        <span th:text="${music.title}"></span>
+      </li>
+      <li>
+        <strong>제목: </strong>
+        <span th:text="${music.titleKorean}"></span>
+      </li>
+      <li>
+        <strong>길이: </strong>
+        <span th:text="${music.length / 60} + '분 ' + ${music.length % 60} + '초'"></span>
+      </li>
+      <li>
+        <strong>업로드: </strong>
+        <span th:text="${music.uploaded}"></span>
+      </li>
+    </ul>
+  </div>
+
+  <div style="display: inline-block; vertical-align: top; margin-left: 20px;">
+    <h1>댓글</h1>
+    <form method="post">
+      <label>
+        <input type="text" name="nickname" placeholder="닉네임" maxlength="20" size="20">
+      </label>
+      <label>
+        <input type="password" name="password" placeholder="비밀번호" maxlength="32" size="10">
+      </label>
+      <button type="submit">댓글 작성</button>
+      <br>
+      <label>
+        <textarea name="body" placeholder="댓글 내용을 입력해주세용" maxlength="200" rows="5" cols="50" style="margin-top: 5px"></textarea>
+      </label>
+    </form>
+
+    <div th:if="${commentList.isEmpty()}">등록된 댓글이 없습니다.</div>
+    <div th:each="comment : ${commentList}">
+      <strong th:text="${comment.nickname}"></strong>
+      <span th:text="'(' + ${#strings.arraySplit(comment.ip, '.')[0]} + '.' + ${#strings.arraySplit(comment.ip, '.')[1]} + ')'"></span>
+      <span th:text="${#temporals.format(comment.created, 'yyyy-MM-dd HH:mm:ss')}"></span>
+      <br>
+      <p th:text="${comment.body}"></p>
+    </div>
+  </div>
 </th:block>
 
 </html>
