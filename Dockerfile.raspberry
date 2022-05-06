@@ -13,4 +13,4 @@ FROM arm64v8/openjdk:18-slim
 RUN mkdir /opt/app
 COPY --from=builder build/libs/*.jar /opt/app/memoria.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/opt/app/memoria.jar"]
+ENTRYPOINT ["java", "-jar", "-Djava.net.preferIPv4Stack=true", "/opt/app/memoria.jar"]

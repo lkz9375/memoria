@@ -13,4 +13,4 @@ FROM adoptopenjdk/openjdk16:jre-16.0.1_9-alpine
 RUN mkdir /opt/app
 COPY --from=builder build/libs/*.jar /opt/app/water.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/opt/app/water.jar"]
+ENTRYPOINT ["java", "-jar", "-Djava.net.preferIPv4Stack=true", "/opt/app/water.jar"]
