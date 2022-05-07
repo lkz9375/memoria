@@ -55,6 +55,7 @@
         <strong th:text="${comment.nickname}"></strong>
         <span th:text="'(' + ${#strings.arraySplit(comment.ip, '.')[0]} + '.' + ${#strings.arraySplit(comment.ip, '.')[1]} + ')'"></span>
         <span th:text="${#temporals.format(comment.created, 'yyyy-MM-dd HH:mm:ss')}"></span>
+        <button type="button" th:onclick="|deleteComment(${comment.id})|">삭제</button>
         <br>
         <p th:text="${comment.body}" style="line-break: anywhere; white-space: pre-line;"></p>
         <hr th:if="${!index.last}">
@@ -83,7 +84,7 @@
             document.getElementById('comment-password').value = '';
 
             const musicId = "[[${music.id}]]";
-            fetch(`/api/music/${musicId}/comment`, {
+            fetch(`/api/comment/${musicId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -106,7 +107,7 @@
 
         async function reload() {
             const musicId = "[[${music.id}]]";
-            fetch(`/api/music/${musicId}/comment`)
+            fetch(`/api/comment/${musicId}`)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -128,6 +129,7 @@
                               <strong>${obj.nickname}</strong>
                               <span>(${ipList[0]}.${ipList[1]})</span>
                               <span>${created.getFullYear()}-${String(created.getMonth() + 1).padStart(2, '0')}-${String(created.getDate()).padStart(2, '0')} ${String(created.getHours()).padStart(2, '0')}:${String(created.getMinutes()).padStart(2, '0')}:${String(created.getSeconds()).padStart(2, '0')}</span>
+                              <button type="button" onclick="deleteComment(${obj.id})">삭제</button>
                               <br>
                               <p style="line-break: anywhere; white-space: pre-line;" >${obj.body}</p>
                         `;
@@ -140,6 +142,28 @@
 
                     document.getElementById('commentList').innerHTML = html;
                 });
+        }
+
+        function deleteComment(commentId) {
+            const password = prompt('비밀번호를 입력해주세요.');
+            fetch(`/api/comment/${commentId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'password': password,
+                }),
+            }).then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw Error('비밀번호가 올바르지 않습니다.');
+            }).then(() => {
+                reload();
+            }).catch(e => {
+                alert(e.message);
+            })
         }
 
         /*]]>*/

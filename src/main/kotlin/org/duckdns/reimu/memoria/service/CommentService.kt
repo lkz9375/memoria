@@ -2,6 +2,7 @@ package org.duckdns.reimu.memoria.service
 
 import org.duckdns.reimu.memoria.entity.Comment
 import org.duckdns.reimu.memoria.model.param.AddCommentParam
+import org.duckdns.reimu.memoria.model.param.DeleteCommentParam
 import org.duckdns.reimu.memoria.repository.CommentRepository
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -37,5 +38,17 @@ class CommentService(
                 created = LocalDateTime.now()
             )
         )
+    }
+
+    @Transactional
+    fun delete(commentId: Long, deleteCommentParam: DeleteCommentParam): Boolean {
+        val comment = commentRepository.getById(commentId)
+        if (comment.password != deleteCommentParam.password) {
+            return false
+        }
+
+        commentRepository.delete(comment)
+
+        return true
     }
 }
