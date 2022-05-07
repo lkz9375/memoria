@@ -37,28 +37,114 @@
 
   <div style="display: inline-block; vertical-align: top; margin-left: 20px; max-width: 800px; width: auto;">
     <h1>댓글</h1>
-    <form method="post">
-      <label>
-        <textarea name="body" placeholder="댓글 내용을 입력해주세용" maxlength="200" rows="5" cols="50" style="margin-top: 5px"></textarea>
-      </label>
-      <br>
-      <label>
-        <input type="text" name="nickname" placeholder="닉네임" maxlength="20" size="20">
-      </label>
-      <label>
-        <input type="password" name="password" placeholder="비밀번호" maxlength="32" size="10">
-      </label>
-      <button type="submit">댓글 작성</button>
-    </form>
+    <label>
+      <textarea id="comment-body" name="body" placeholder="댓글 내용을 입력해주세용" maxlength="200" rows="5" cols="50"></textarea>
+    </label>
+    <br>
+    <label>
+      <input id="comment-nickname" type="text" name="nickname" placeholder="닉네임" maxlength="20" size="20">
+    </label>
+    <label>
+      <input id="comment-password" type="password" name="password" placeholder="비밀번호" maxlength="32" size="10">
+    </label>
+    <button type="submit" onclick="saveCommentAndReload()">댓글 작성</button>
 
-    <div th:if="${commentList.isEmpty()}">등록된 댓글이 없습니다.</div>
-    <div th:each="comment : ${commentList}">
-      <strong th:text="${comment.nickname}"></strong>
-      <span th:text="'(' + ${#strings.arraySplit(comment.ip, '.')[0]} + '.' + ${#strings.arraySplit(comment.ip, '.')[1]} + ')'"></span>
-      <span th:text="${#temporals.format(comment.created, 'yyyy-MM-dd HH:mm:ss')}"></span>
-      <br>
-      <p th:text="${comment.body}" style="line-break: anywhere; white-space: pre-line;"></p>
+    <div id="commentList" style="overflow: scroll; overflow-x: hidden; height: auto; max-height: 600px; margin-top: 10px;">
+      <div th:each="comment, index : ${commentList}">
+        <strong th:text="'#' + ${commentList.size - index.index} + '. '"></strong>
+        <strong th:text="${comment.nickname}"></strong>
+        <span th:text="'(' + ${#strings.arraySplit(comment.ip, '.')[0]} + '.' + ${#strings.arraySplit(comment.ip, '.')[1]} + ')'"></span>
+        <span th:text="${#temporals.format(comment.created, 'yyyy-MM-dd HH:mm:ss')}"></span>
+        <br>
+        <p th:text="${comment.body}" style="line-break: anywhere; white-space: pre-line;"></p>
+        <hr th:if="${!index.last}">
+      </div>
     </div>
+
+    <script th:inline="javascript">
+        function escapeXSS(html) {
+            html = html.replaceAll('&', '&amp;');
+            html = html.replaceAll('<', '&lt;');
+            html = html.replaceAll('>', '&gt;');
+            return html;
+        }
+
+        /*<![CDATA[*/
+        /**
+         * 댓글 추가 및 새로 갱신
+         */
+        function saveCommentAndReload() {
+            const body = document.getElementById('comment-body').value;
+            const nickname = document.getElementById('comment-nickname').value;
+            const password = document.getElementById('comment-password').value;
+
+            document.getElementById('comment-body').value = '';
+            document.getElementById('comment-nickname').value = '';
+            document.getElementById('comment-password').value = '';
+
+            const musicId = "[[${music.id}]]";
+            fetch(`/api/music/${musicId}/comment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    'nickname': nickname,
+                    'password': password,
+                    'body': body
+                }),
+            }).then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+            }).then(() => {
+                reload();
+            }).catch(() => {
+                alert('뭔가 에러난듯??');
+            })
+        }
+
+        async function reload() {
+            const musicId = "[[${music.id}]]";
+            fetch(`/api/music/${musicId}/comment`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                })
+                .then(json => {
+                    let html = '';
+                    const total = Object.keys(json).length;
+
+                    json.forEach((obj, index) => {
+                        const ipList = obj.ip.split('.');
+                        const created = new Date(Date.parse(obj.created));
+                        obj.body = escapeXSS(obj.body);
+                        obj.nickname = escapeXSS(obj.nickname);
+
+                        html += `
+                            <div>
+                              <strong>#${total - index}. </strong>
+                              <strong>${obj.nickname}</strong>
+                              <span>(${ipList[0]}.${ipList[1]})</span>
+                              <span>${created.getFullYear()}-${String(created.getMonth() + 1).padStart(2, '0')}-${String(created.getDate()).padStart(2, '0')} ${String(created.getHours()).padStart(2, '0')}:${String(created.getMinutes()).padStart(2, '0')}:${String(created.getSeconds()).padStart(2, '0')}</span>
+                              <br>
+                              <p style="line-break: anywhere; white-space: pre-line;" >${obj.body}</p>
+                        `;
+
+                        if (document.getElementById('commentList').innerHTML.trim().length > 0) {
+                            html += `<hr>`;
+                        }
+                        html += `</div>`;
+                    });
+
+                    document.getElementById('commentList').innerHTML = html;
+                });
+        }
+
+        /*]]>*/
+    </script>
+
   </div>
 </th:block>
 

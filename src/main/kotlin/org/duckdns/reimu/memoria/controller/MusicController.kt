@@ -1,17 +1,13 @@
 package org.duckdns.reimu.memoria.controller
 
-import org.duckdns.reimu.memoria.model.param.AddCommentParam
 import org.duckdns.reimu.memoria.service.CommentService
 import org.duckdns.reimu.memoria.service.MusicService
 import org.duckdns.reimu.memoria.service.SingerService
-import org.duckdns.reimu.memoria.util.RequestUtils
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
-import javax.servlet.http.HttpServletRequest
 
 @Controller
 @RequestMapping("/music")
@@ -57,18 +53,6 @@ class MusicController(
         model.addAttribute("commentList", commentList)
 
         return "music/songDetail"
-    }
-
-    @PostMapping("/song/{musicId}")
-    fun addComment(
-        @PathVariable(name = "musicId") musicId: Long = 0,
-        addCommentParam: AddCommentParam,
-        request: HttpServletRequest,
-        model: Model,
-    ): String {
-        commentService.add(musicId, RequestUtils.getIpAddress(request), addCommentParam)
-
-        return getMusicDetail(musicId, model)
     }
 
     @GetMapping("/singers")
