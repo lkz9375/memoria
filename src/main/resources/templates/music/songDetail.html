@@ -35,9 +35,13 @@
     </ul>
   </div>
 
-  <div style="display: inline-block; vertical-align: top; margin-left: 20px;">
+  <div style="display: inline-block; vertical-align: top; margin-left: 20px; max-width: 800px; width: auto;">
     <h1>댓글</h1>
     <form method="post">
+      <label>
+        <textarea name="body" placeholder="댓글 내용을 입력해주세용" maxlength="200" rows="5" cols="50" style="margin-top: 5px"></textarea>
+      </label>
+      <br>
       <label>
         <input type="text" name="nickname" placeholder="닉네임" maxlength="20" size="20">
       </label>
@@ -45,10 +49,6 @@
         <input type="password" name="password" placeholder="비밀번호" maxlength="32" size="10">
       </label>
       <button type="submit">댓글 작성</button>
-      <br>
-      <label>
-        <textarea name="body" placeholder="댓글 내용을 입력해주세용" maxlength="200" rows="5" cols="50" style="margin-top: 5px"></textarea>
-      </label>
     </form>
 
     <div th:if="${commentList.isEmpty()}">등록된 댓글이 없습니다.</div>
@@ -57,7 +57,7 @@
       <span th:text="'(' + ${#strings.arraySplit(comment.ip, '.')[0]} + '.' + ${#strings.arraySplit(comment.ip, '.')[1]} + ')'"></span>
       <span th:text="${#temporals.format(comment.created, 'yyyy-MM-dd HH:mm:ss')}"></span>
       <br>
-      <p th:text="${comment.body}"></p>
+      <p th:text="${comment.body}" style="line-break: anywhere; white-space: pre-line;"></p>
     </div>
   </div>
 </th:block>
