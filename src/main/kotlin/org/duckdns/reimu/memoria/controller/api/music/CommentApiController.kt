@@ -1,4 +1,4 @@
-package org.duckdns.reimu.memoria.controller.api
+package org.duckdns.reimu.memoria.controller.api.music
 
 import org.duckdns.reimu.memoria.entity.Comment
 import org.duckdns.reimu.memoria.model.CommentDto

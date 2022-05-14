@@ -1,4 +1,4 @@
-package org.duckdns.reimu.memoria.controller
+package org.duckdns.reimu.memoria.controller.music
 
 import org.duckdns.reimu.memoria.service.CommentService
 import org.duckdns.reimu.memoria.service.MusicService
@@ -11,23 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
 @RequestMapping("/music")
-class MusicController(
+class SongController(
     private val musicService: MusicService,
     private val singerService: SingerService,
     private val commentService: CommentService,
 ) {
-    @GetMapping("")
-    fun index(
-        model: Model
-    ): String {
-        model.addAttribute("title", "Home")
-        return "music/index"
-    }
-
     @GetMapping("/songs")
-    fun getMusicList(
-        model: Model
-    ): String {
+    fun getMusicList(model: Model): String {
         val musicList = musicService.getList()
         val totalLength = musicList.sumOf { music -> music.length }
 
@@ -53,19 +43,5 @@ class MusicController(
         model.addAttribute("commentList", commentList)
 
         return "music/songDetail"
-    }
-
-    @GetMapping("/singers")
-    fun getSingerList(
-        model: Model
-    ): String {
-        val singerList = singerService.getList()
-        val robotCount = singerList.count { it.isRobot }
-
-        model.addAttribute("title", "Singers")
-        model.addAttribute("singerList", singerList)
-        model.addAttribute("robotCount", robotCount)
-
-        return "music/singers"
     }
 }

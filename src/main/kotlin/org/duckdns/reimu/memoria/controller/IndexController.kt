@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 class IndexController {
     @GetMapping("")
     fun index(): String {
-        return "enter"
+        return "index"
     }
 }
