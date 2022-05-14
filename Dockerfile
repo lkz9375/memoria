@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk16:jre-16.0.1_9-alpine AS builder
+FROM adoptopenjdk:16-jdk-hotspot AS builder
 
 COPY gradlew .
 COPY settings.gradle.kts .
@@ -8,7 +8,7 @@ COPY src src
 RUN chmod +x ./gradlew
 RUN ./gradlew bootJar
 
-FROM adoptopenjdk/openjdk16:jre-16.0.1_9-alpine
+FROM arm64v8/openjdk:18-slim
 
 RUN mkdir /opt/app
 COPY --from=builder build/libs/*.jar /opt/app/memoria.jar

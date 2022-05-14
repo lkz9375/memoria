@@ -2,7 +2,7 @@ version: '3'
 
 services:
   database:
-    image: mysql
+    image: arm64v8/mysql:oracle
     container_name: reimysql
     environment:
       - MYSQL_DATABASE=memoria
@@ -13,8 +13,6 @@ services:
       - "3306:3306"
     volumes:
       - /home/yuni/reimysql/memoria:/var/lib/mysql
-    networks:
-      - yunetwork
 
   application:
     build:
@@ -22,12 +20,12 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "80:8080"
+      - "8081:8080"
     depends_on:
       - database
     container_name: memoria
-    networks:
-      - yunetwork
 
 networks:
-  yunetwork:
+  default:
+    external:
+      name: yunetwork
