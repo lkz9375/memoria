@@ -34,7 +34,7 @@ dependencies {
     implementation("org.jsoup:jsoup:1.14.3")
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-configuration-processor
-    implementation("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
