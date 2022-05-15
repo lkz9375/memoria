@@ -31,6 +31,25 @@ class ControllerErrorAdvice {
         return "music/error"
     }
 
+    @ExceptionHandler(SecurityException::class)
+    fun handleSecurityException(
+        e: SecurityException,
+        model: Model,
+        request: HttpServletRequest,
+    ): String {
+        logger.error { """
+            [SecurityException]
+            -- requestURI : ${request.requestURI}
+            -- message : ${e.message}
+            """.trimIndent()
+        }
+
+        model.addAttribute("title", "Error")
+        model.addAttribute("errorMessage", ErrorMessage.NO_PERMISSION)
+
+        return "music/error"
+    }
+
     @ExceptionHandler(Exception::class)
     fun handleException(
         e: Exception,

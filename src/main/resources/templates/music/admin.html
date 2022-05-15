@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{music/layout/default_layout}">
+
+<th:block layout:fragment="content">
+  <h1>관리 페이지</h1>
+
+  <h2>가수 추가</h2>
+  <form method="post" action="/music/admin/singer" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="영어 이름"><br>
+    <input type="text" name="nameKorean" placeholder="한글 이름"><br>
+    <input type="text" name="youtubeUrl" placeholder="유튜브 url (옵션)"><br>
+    <input type="text" name="nicovideoUrl" placeholder="니코동 url (옵션)"><br>
+    보컬로이드인가요? <input type="checkbox" name="isRobot"><br>
+    썸네일 선택 (160x160) <input type="file" name="file"><br>
+    <input type="submit">
+  </form>
+
+  <h2>노래 추가</h2>
+  <form method="post" action="/music/admin/song">
+    <input type="text" name="parentId" placeholder="부모 id"><br>
+    <input type="text" name="url" placeholder="url 주소"><br>
+    <input type="text" name="titleKorean" placeholder="한글 제목"><br>
+    <input type="text" name="singerIds" placeholder="example: 1,2"><br>
+    <input type="submit">
+  </form>
+</th:block>
+
+</html>
