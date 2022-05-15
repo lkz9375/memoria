@@ -83,8 +83,8 @@
             document.getElementById('comment-nickname').value = '';
             document.getElementById('comment-password').value = '';
 
-            const musicId = "[[${music.id}]]";
-            fetch(`/api/comment/${musicId}`, {
+            const songId = "[[${song.id}]]";
+            fetch(`/api/comment/${songId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -106,8 +106,8 @@
         }
 
         async function reload() {
-            const musicId = "[[${music.id}]]";
-            fetch(`/api/comment/${musicId}`)
+            const songId = "[[${song.id}]]";
+            fetch(`/api/comment/${songId}`)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
