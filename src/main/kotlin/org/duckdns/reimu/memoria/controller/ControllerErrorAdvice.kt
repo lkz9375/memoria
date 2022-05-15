@@ -28,7 +28,7 @@ class ControllerErrorAdvice {
         model.addAttribute("title", "Error")
         model.addAttribute("errorMessage", ErrorMessage.NO_SONG)
 
-        return "music/error"
+        return "song/error"
     }
 
     @ExceptionHandler(SecurityException::class)
@@ -47,7 +47,7 @@ class ControllerErrorAdvice {
         model.addAttribute("title", "Error")
         model.addAttribute("errorMessage", ErrorMessage.NO_PERMISSION)
 
-        return "music/error"
+        return "song/error"
     }
 
     @ExceptionHandler(Exception::class)
@@ -66,6 +66,6 @@ class ControllerErrorAdvice {
         model.addAttribute("title", "Error")
         model.addAttribute("errorMessage", ErrorMessage.UNKNOWN_ERROR)
 
-        return "music/error"
+        return "song/error"
     }
 }

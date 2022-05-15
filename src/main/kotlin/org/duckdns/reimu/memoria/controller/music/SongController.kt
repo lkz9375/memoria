@@ -18,27 +18,27 @@ class SongController(
 ) {
     @GetMapping("/songs")
     fun getMusicList(model: Model): String {
-        val musicList = songService.getList()
-        val totalLength = musicList.sumOf { music -> music.length }
+        val songList = songService.getList()
+        val totalLength = songList.sumOf { music -> music.length }
 
         model.addAttribute("title", "Songs")
-        model.addAttribute("musicList", musicList)
+        model.addAttribute("songList", songList)
         model.addAttribute("length", totalLength)
 
         return "music/songs"
     }
 
-    @GetMapping("/song/{musicId}")
+    @GetMapping("/song/{songId}")
     fun getMusicDetail(
-        @PathVariable(name = "musicId") musicId: Long = 0,
+        @PathVariable(name = "songId") songId: Long = 0,
         model: Model
     ): String {
-        val music = songService.get(musicId)
-        val singerList = singerService.getSingersByMusic(music)
-        val commentList = commentService.getList(music.id)
+        val song = songService.get(songId)
+        val singerList = singerService.getSingersByMusic(song)
+        val commentList = commentService.getList(song.id)
 
         model.addAttribute("title", "Song Detail")
-        model.addAttribute("music", music)
+        model.addAttribute("song", song)
         model.addAttribute("singerList", singerList)
         model.addAttribute("commentList", commentList)
 

@@ -5,25 +5,25 @@
 
 <th:block layout:fragment="content">
   <h1>요약</h1>
-  <div th:text="'현재 ' + ${musicList.size()} + '개의 노래가 있습니다.'"></div>
+  <div th:text="'현재 ' + ${songList.size()} + '개의 노래가 있습니다.'"></div>
   <div th:text="'모두 듣는다면 ' + ${length / 86400} + '일 ' + ${length % 86400 / 3600} + '시간 ' + ${length % 3600 / 60} + '분 ' + ${length % 60} + '초가 소요됩니다.'"></div>
 
   <h1>노래 리스트</h1>
-  <div th:each="music: ${musicList}" style="display: inline-block; vertical-align: top; width: 250px;">
+  <div th:each="song: ${songList}" style="display: inline-block; vertical-align: top; width: 250px;">
     <div style="padding: 10px 10px 10px 10px">
       <div style="width:192px; height:106px; overflow:hidden; margin: 10px auto 10px auto;">
-        <a th:href="@{'/music/song/' + ${music.id}}">
-          <img th:if="${music.isYoutube()}" th:src="${music.thumbnailUrl}" alt="song-thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
-          <img th:if="${!music.isYoutube()}" th:src="${music.thumbnailUrl} + '.L'" th:data-thumbnail="${music.thumbnailUrl}" onerror="this.src = this.getAttribute('data-thumbnail');" alt="song-thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
+        <a th:href="@{'/music/song/' + ${song.id}}">
+          <img th:if="${song.isYoutube()}" th:src="${song.thumbnailUrl}" alt="song-thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
+          <img th:if="${!song.isYoutube()}" th:src="${song.thumbnailUrl} + '.L'" th:data-thumbnail="${song.thumbnailUrl}" onerror="this.src = this.getAttribute('data-thumbnail');" alt="song-thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
         </a>
       </div>
-      <strong>제목:</strong> <a th:href="@{'/music/song/' + ${music.id}}" th:text="${music.titleKorean}"></a>
-      <img th:if="${!music.isYoutube()}" src="https://nicovideo.cdn.nimg.jp/web/images/favicon/32.png" width="20" height="20" alt="nicovideo" style="vertical-align: top;">
-      <img th:if="${music.isYoutube()}" src="https://www.youtube.com/s/desktop/fc7b0168/img/favicon_32x32.png" width="20" height="20" alt="youtube" style="vertical-align: top;">
+      <strong>제목:</strong> <a th:href="@{'/music/song/' + ${song.id}}" th:text="${song.titleKorean}"></a>
+      <img th:if="${!song.isYoutube()}" src="https://nicovideo.cdn.nimg.jp/web/images/favicon/32.png" width="20" height="20" alt="nicovideo" style="vertical-align: top;">
+      <img th:if="${song.isYoutube()}" src="https://www.youtube.com/s/desktop/fc7b0168/img/favicon_32x32.png" width="20" height="20" alt="youtube" style="vertical-align: top;">
       <br>
-      <strong>길이:</strong> <span th:text="${music.length / 60} + '분 ' + ${music.length % 60} + '초'"></span>
+      <strong>길이:</strong> <span th:text="${song.length / 60} + '분 ' + ${song.length % 60} + '초'"></span>
       <br>
-      <strong>업로드:</strong> <span th:text="${music.uploaded}"></span>
+      <strong>업로드:</strong> <span th:text="${song.uploaded}"></span>
     </div>
   </div>
 </th:block>

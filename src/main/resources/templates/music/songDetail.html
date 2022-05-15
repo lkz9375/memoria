@@ -6,7 +6,7 @@
 <th:block layout:fragment="content">
   <div style="display: inline-block; width: 560px;">
     <h1>동영상</h1>
-    <iframe width="560" height="315" th:src="${music.embedTag}" title="video player" style="border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="560" height="315" th:src="${song.embedTag}" title="video player" style="border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
     <h1>노래 정보</h1>
     <ul>
@@ -18,19 +18,19 @@
       </li>
       <li>
         <strong>원제목: </strong>
-        <span th:text="${music.title}"></span>
+        <span th:text="${song.title}"></span>
       </li>
       <li>
         <strong>제목: </strong>
-        <span th:text="${music.titleKorean}"></span>
+        <span th:text="${song.titleKorean}"></span>
       </li>
       <li>
         <strong>길이: </strong>
-        <span th:text="${music.length / 60} + '분 ' + ${music.length % 60} + '초'"></span>
+        <span th:text="${song.length / 60} + '분 ' + ${song.length % 60} + '초'"></span>
       </li>
       <li>
         <strong>업로드: </strong>
-        <span th:text="${music.uploaded}"></span>
+        <span th:text="${song.uploaded}"></span>
       </li>
     </ul>
   </div>
