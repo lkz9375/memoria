@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface SongSingerRepository : JpaRepository<SongSinger, Long> {
-    fun findAllBySongId(musicId: Long): List<SongSinger>
+    fun findAllBySongId(songId: Long): List<SongSinger>
+
+    fun findAllBySingerId(singerId: Long): List<SongSinger>
 }

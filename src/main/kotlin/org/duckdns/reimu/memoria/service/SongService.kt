@@ -1,5 +1,6 @@
 package org.duckdns.reimu.memoria.service
 
+import org.duckdns.reimu.memoria.entity.Singer
 import org.duckdns.reimu.memoria.entity.Song
 import org.duckdns.reimu.memoria.entity.SongSinger
 import org.duckdns.reimu.memoria.model.param.AddSongParam
@@ -19,6 +20,11 @@ class SongService(
 ) {
     fun getList(): List<Song> {
         return songRepository.findAllByOrderByIdDesc()
+    }
+
+    fun getListBySinger(singer: Singer): List<Song> {
+        val songsBySinger = songSingerRepository.findAllBySingerId(singer.id)
+        return songRepository.findAllById(songsBySinger.map { it.songId }).reversed()
     }
 
     fun get(musicId: Long): Song {

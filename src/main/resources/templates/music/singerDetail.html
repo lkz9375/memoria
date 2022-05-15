@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{music/layout/default_layout}">
+
+<th:block layout:fragment="content">
+  <div style="display: inline-block; width: 400px;">
+    <h1>가수 정보</h1>
+    <img th:src="${singer.thumbnail}" width="260" height="260" style="display: block; margin: 20px auto 20px auto;">
+
+    <strong>이름: </strong><span th:text="${singer.name + ' (' + singer.nameKorean + ')'}"></span><br>
+  </div>
+
+  <div style="display: inline-block; vertical-align: top; margin-left: 20px; width: auto;">
+    <h1>부른 노래들</h1>
+    <div th:each="song: ${songs}" style="display: inline-block; text-align: center;">
+      <div style="width:192px; height:106px; overflow:hidden; margin: 10px auto 10px auto;">
+        <a th:href="@{'/music/song/' + ${song.id}}">
+          <img th:if="${song.isYoutube()}" th:src="${song.thumbnailUrl}" alt="song-thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
+          <img th:if="${!song.isYoutube()}" th:src="${song.thumbnailUrl} + '.L'" th:data-thumbnail="${song.thumbnailUrl}" onerror="this.src = this.getAttribute('data-thumbnail');" alt="song-thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
+        </a>
+      </div>
+    </div>
+  </div>
+</th:block>
+
+</html>

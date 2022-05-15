@@ -13,8 +13,8 @@
       <li>
         <strong>가수: </strong>
         <span th:each="singer: ${singerList}">
-        <span th:text="${singer.getNameKorean()}"></span>
-      </span>
+          <a th:href="@{'/music/singer/' + ${singer.id}}"><span th:text="${singer.getNameKorean()}"></span></a>
+        </span>
       </li>
       <li>
         <strong>원제목: </strong>
