@@ -22,4 +22,5 @@ class Singer(
     val youtubeUrl: String?,
     val nicovideoUrl: String?,
     val isRobot: Boolean,
+    val thumbnail: String,
 )

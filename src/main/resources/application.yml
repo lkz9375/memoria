@@ -9,6 +9,9 @@ spring:
       ddl-auto: none
   mvc:
     static-path-pattern: /static/**
+  servlet:
+    multipart:
+      location: /media/
 
 ---
 spring:
@@ -26,6 +29,9 @@ spring:
       enabled: true
   thymeleaf:
     cache: false
+  servlet:
+    multipart:
+      location: /C:/Users/dsyun/Desktop/
 
 server:
   port: 8081

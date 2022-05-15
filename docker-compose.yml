@@ -24,6 +24,8 @@ services:
     depends_on:
       - database
     container_name: memoria
+    volumes:
+      - /home/yuni/reimysql/media:/media
 
 networks:
   default:

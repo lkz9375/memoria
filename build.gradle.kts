@@ -28,10 +28,13 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging:2.1.21")
 
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    implementation("mysql:mysql-connector-java:8.0.28")
+    implementation("mysql:mysql-connector-java:8.0.29")
 
     // jsoup HTML parser library @ https://jsoup.org/
     implementation("org.jsoup:jsoup:1.14.3")
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-configuration-processor
+    implementation("org.springframework.boot:spring-boot-configuration-processor")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

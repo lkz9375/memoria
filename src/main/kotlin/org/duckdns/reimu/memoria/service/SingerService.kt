@@ -6,6 +6,9 @@ import org.duckdns.reimu.memoria.model.param.AddSingerParam
 import org.duckdns.reimu.memoria.repository.MusicSingerRepository
 import org.duckdns.reimu.memoria.repository.SingerRepository
 import org.springframework.stereotype.Service
+import java.io.File
+import java.util.*
+import javax.transaction.Transactional
 
 @Service
 class SingerService(
@@ -23,14 +26,20 @@ class SingerService(
         return singerRepository.findAllById(singerIds)
     }
 
+    @Transactional
     fun add(addSingerParam: AddSingerParam): Singer {
+        val file = addSingerParam.file
+        val filePath = "/singer/${UUID.randomUUID()}_${file.originalFilename}"
+        file.transferTo(File(filePath))
+
         return singerRepository.save(
             Singer(
                 name = addSingerParam.name,
                 nameKorean = addSingerParam.nameKorean,
                 youtubeUrl = addSingerParam.youtubeUrl,
                 nicovideoUrl = addSingerParam.nicovideoUrl,
-                isRobot = addSingerParam.isRobot
+                isRobot = addSingerParam.isRobot,
+                thumbnail = filePath
             )
         )
     }
