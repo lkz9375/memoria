@@ -1,10 +1,10 @@
 package org.duckdns.reimu.memoria.model
 
-import org.duckdns.reimu.memoria.entity.Music
+import org.duckdns.reimu.memoria.entity.Song
 import org.duckdns.reimu.memoria.enum.Site
 import java.time.LocalDate
 
-data class MusicDto(
+data class SongDto(
     var parentId: Long? = null,
     var titleKorean: String = "",
     val urlId: String,
@@ -14,7 +14,7 @@ data class MusicDto(
     val uploaded: LocalDate,
     val thumbnailUrl: String,
 ) {
-    fun toEntity() = Music(
+    fun toEntity() = Song(
         parentId = parentId,
         urlId = urlId,
         site = site,

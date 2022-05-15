@@ -3,8 +3,8 @@ package org.duckdns.reimu.memoria.entity
 import java.io.Serializable
 import javax.persistence.*
 
-data class MusicSingerId(
-    private val musicId: Long = 0,
+data class SongSingerId(
+    private val songId: Long = 0,
     private val singerId: Long = 0,
 ) : Serializable
 
@@ -13,11 +13,11 @@ data class MusicSingerId(
  * 한 명의 가수는 여러 노래를 부를 수 있음
  */
 @Entity
-@Table(name = "musicSinger")
-@IdClass(MusicSingerId::class)
-class MusicSinger(
+@Table(name = "songSinger")
+@IdClass(SongSingerId::class)
+class SongSinger(
     @Id
-    val musicId: Long,
+    val songId: Long,
     @Id
     val singerId: Long,
 )

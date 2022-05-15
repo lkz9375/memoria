@@ -1,7 +1,7 @@
 package org.duckdns.reimu.memoria.util
 
 import org.duckdns.reimu.memoria.enum.Site
-import org.duckdns.reimu.memoria.model.MusicDto
+import org.duckdns.reimu.memoria.model.SongDto
 import org.jsoup.Jsoup
 import java.time.LocalDate
 import javax.servlet.http.HttpServletRequest
@@ -12,14 +12,14 @@ class RequestUtils {
             return request.getHeader("X-FORWARDED-FOR") ?: request.remoteAddr
         }
 
-        fun makeMusicFrom(rawUrl: String): MusicDto {
+        fun makeMusicFrom(rawUrl: String): SongDto {
             return when {
                 "youtu" in rawUrl -> makeMusicFromYoutube(rawUrl)
                 else -> makeMusicFromNicovideo(rawUrl)
             }
         }
 
-        private fun makeMusicFromYoutube(rawUrl: String): MusicDto {
+        private fun makeMusicFromYoutube(rawUrl: String): SongDto {
             val document = Jsoup.connect(rawUrl).get()
             val div = document.getElementsByClass("watch-main-col")[0]
 
@@ -44,7 +44,7 @@ class RequestUtils {
                 }
             }
 
-            return MusicDto(
+            return SongDto(
                 urlId = urlId,
                 site = Site.YOUTUBE,
                 title = title,
@@ -54,7 +54,7 @@ class RequestUtils {
             )
         }
 
-        private fun makeMusicFromNicovideo(rawUrl: String): MusicDto {
+        private fun makeMusicFromNicovideo(rawUrl: String): SongDto {
             val document = Jsoup.connect(rawUrl).get()
             val head = document.getElementsByTag("head")[0]
 
@@ -88,7 +88,7 @@ class RequestUtils {
                 }
             }
 
-            return MusicDto(
+            return SongDto(
                 urlId = urlId,
                 site = Site.NICOVIDEO,
                 title = title,

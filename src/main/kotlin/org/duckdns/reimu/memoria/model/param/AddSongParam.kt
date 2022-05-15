@@ -1,6 +1,6 @@
 package org.duckdns.reimu.memoria.model.param
 
-data class AddMusicParam(
+data class AddSongParam(
     val parentId: Long? = null,
     val url: String,
     val titleKorean: String,

@@ -1,8 +1,8 @@
 package org.duckdns.reimu.memoria.controller.music
 
-import org.duckdns.reimu.memoria.model.param.AddMusicParam
+import org.duckdns.reimu.memoria.model.param.AddSongParam
 import org.duckdns.reimu.memoria.model.param.AddSingerParam
-import org.duckdns.reimu.memoria.service.MusicService
+import org.duckdns.reimu.memoria.service.SongService
 import org.duckdns.reimu.memoria.service.SingerService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest
 @Controller
 @RequestMapping("/music/admin")
 class AdminController(
-    private val musicService: MusicService,
+    private val songService: SongService,
     private val singerService: SingerService,
 ) {
     @GetMapping
@@ -51,14 +51,14 @@ class AdminController(
     @PostMapping("/song")
     fun upload(
         request: HttpServletRequest,
-        addMusicParam: AddMusicParam,
+        addSongParam: AddSongParam,
     ): String {
         val cookie = WebUtils.getCookie(request, "admin")
         if (cookie == null || cookie.value != "ReimuHakurei") {
             throw SecurityException("권한이 부족합니다.")
         }
 
-        musicService.add(addMusicParam)
+        songService.add(addSongParam)
 
         return "redirect:/music/admin"
     }

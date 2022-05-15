@@ -1,9 +1,9 @@
 package org.duckdns.reimu.memoria.controller.api.music
 
-import org.duckdns.reimu.memoria.entity.Music
-import org.duckdns.reimu.memoria.model.param.AddMusicParam
-import org.duckdns.reimu.memoria.model.param.UpdateMusicParam
-import org.duckdns.reimu.memoria.service.MusicService
+import org.duckdns.reimu.memoria.entity.Song
+import org.duckdns.reimu.memoria.model.param.AddSongParam
+import org.duckdns.reimu.memoria.model.param.UpdateSongParam
+import org.duckdns.reimu.memoria.service.SongService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -11,24 +11,24 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/music")
 class SongApiController(
-    private val musicService: MusicService,
+    private val songService: SongService,
 ) {
     @PostMapping("/song")
     fun addMusic(
-        @RequestBody addMusicParam: AddMusicParam
-    ): ResponseEntity<Music> {
+        @RequestBody addSongParam: AddSongParam
+    ): ResponseEntity<Song> {
         return ResponseEntity(
-            musicService.add(addMusicParam),
+            songService.add(addSongParam),
             HttpStatus.CREATED
         )
     }
 
     @PutMapping("/song")
     fun updateMusic(
-        @RequestBody updateMusicParam: UpdateMusicParam
-    ): ResponseEntity<Music> {
+        @RequestBody updateSongParam: UpdateSongParam
+    ): ResponseEntity<Song> {
         return ResponseEntity(
-            musicService.update(updateMusicParam),
+            songService.update(updateSongParam),
             HttpStatus.OK
         )
     }

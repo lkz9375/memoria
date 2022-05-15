@@ -5,8 +5,8 @@ import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
-@Table(name = "music")
-class Music(
+@Table(name = "song")
+class Song(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
