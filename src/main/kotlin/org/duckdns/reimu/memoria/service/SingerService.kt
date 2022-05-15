@@ -34,7 +34,7 @@ class SingerService(
     fun add(addSingerParam: AddSingerParam): Singer {
         val file = addSingerParam.file
         val filePath = "/singer/${UUID.randomUUID()}_${file.originalFilename}"
-        file.transferTo(File(filePath))
+        file.transferTo(File("/media$filePath"))
 
         return singerRepository.save(
             Singer(
