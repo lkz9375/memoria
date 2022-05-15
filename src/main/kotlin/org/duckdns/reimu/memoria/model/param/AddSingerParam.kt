@@ -7,6 +7,6 @@ data class AddSingerParam(
     val nameKorean: String,
     val youtubeUrl: String? = null,
     val nicovideoUrl: String? = null,
-    val isRobot: Boolean,
+    val isRobot: Boolean = false,
     val file: MultipartFile,
 )

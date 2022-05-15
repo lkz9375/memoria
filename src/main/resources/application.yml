@@ -11,7 +11,7 @@ spring:
     static-path-pattern: /static/**
   servlet:
     multipart:
-      location: /media/
+      location: /media
 
 ---
 spring:
@@ -31,7 +31,7 @@ spring:
     cache: false
   servlet:
     multipart:
-      location: /C:/Users/dsyun/Desktop/
+      location: /C:/Users/dsyun/Desktop
 
 server:
   port: 8081
