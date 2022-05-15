@@ -5,6 +5,7 @@ import org.duckdns.reimu.memoria.model.param.AddSingerParam
 import org.duckdns.reimu.memoria.service.MusicService
 import org.duckdns.reimu.memoria.service.SingerService
 import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -18,11 +19,16 @@ class AdminController(
     private val singerService: SingerService,
 ) {
     @GetMapping
-    fun manager(request: HttpServletRequest): String {
+    fun manager(
+        model: Model,
+        request: HttpServletRequest,
+    ): String {
         val cookie = WebUtils.getCookie(request, "admin")
         if (cookie == null || cookie.value != "ReimuHakurei") {
             throw SecurityException("권한이 부족합니다.")
         }
+
+        model.addAttribute("title", "Admin")
 
         return "music/admin"
     }
