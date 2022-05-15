@@ -13,7 +13,7 @@ class WebConfig(
     override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
         registry
             .addResourceHandler("/**")
-            .addResourceLocations("file://$resourcePath")
+            .addResourceLocations("file:$resourcePath")
     }
 
 }
