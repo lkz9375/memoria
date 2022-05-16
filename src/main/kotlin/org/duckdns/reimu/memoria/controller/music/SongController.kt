@@ -37,7 +37,7 @@ class SongController(
         val singerList = singerService.getSingersByMusic(song)
         val commentList = commentService.getList(song.id)
 
-        model.addAttribute("title", "Song Detail")
+        model.addAttribute("title", "${singerList[0].nameKorean}${if (singerList.size > 1) "(외 ${singerList.size - 1}명)" else ""} - ${song.titleKorean}")
         model.addAttribute("song", song)
         model.addAttribute("singerList", singerList)
         model.addAttribute("commentList", commentList)
