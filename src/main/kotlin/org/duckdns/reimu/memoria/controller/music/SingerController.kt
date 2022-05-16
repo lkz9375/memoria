@@ -34,7 +34,7 @@ class SingerController(
         val singer = singerService.get(singerId)
         val songs = songService.getListBySinger(singer)
 
-        model.addAttribute("title", "Singer Detail")
+        model.addAttribute("title", singer.nameKorean)
         model.addAttribute("singer", singer)
         model.addAttribute("songs", songs)
 
