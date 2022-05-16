@@ -1,5 +1,6 @@
 package org.duckdns.reimu.memoria.service
 
+import org.duckdns.reimu.memoria.config.MultipartFileProps
 import org.duckdns.reimu.memoria.entity.Song
 import org.duckdns.reimu.memoria.entity.Singer
 import org.duckdns.reimu.memoria.model.param.AddSingerParam
@@ -14,6 +15,7 @@ import javax.transaction.Transactional
 class SingerService(
     private val singerRepository: SingerRepository,
     private val songSingerRepository: SongSingerRepository,
+    private val multipartFileProps: MultipartFileProps,
 ) {
     fun getList(): List<Singer> {
         return singerRepository.findAll()
@@ -33,8 +35,9 @@ class SingerService(
     @Transactional
     fun add(addSingerParam: AddSingerParam): Singer {
         val file = addSingerParam.file
-        val filePath = "/singer/${UUID.randomUUID()}_${file.originalFilename}"
-        file.transferTo(File("/media$filePath"))
+        val filePath = file?.let { "/singer/${UUID.randomUUID()}_${file.originalFilename}" }
+
+        file?.transferTo(File("${multipartFileProps.location}$filePath"))
 
         return singerRepository.save(
             Singer(
