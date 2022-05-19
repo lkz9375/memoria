@@ -11,9 +11,15 @@
     <h1>노래 정보</h1>
     <ul>
       <li>
+        <strong>작곡가: </strong>
+        <span th:each="producer: ${producerList}">
+          <span th:text="${producer.nameKorean}"></span>
+        </span>
+      </li>
+      <li>
         <strong>가수: </strong>
         <span th:each="singer: ${singerList}">
-          <a th:href="@{'/music/singer/' + ${singer.id}}"><span th:text="${singer.getNameKorean()}"></span></a>
+          <a th:href="@{'/music/singer/' + ${singer.id}}"><span th:text="${singer.nameKorean}"></span></a>
         </span>
       </li>
       <li>
