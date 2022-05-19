@@ -2,9 +2,11 @@ package org.duckdns.reimu.memoria.service
 
 import org.duckdns.reimu.memoria.entity.Singer
 import org.duckdns.reimu.memoria.entity.Song
+import org.duckdns.reimu.memoria.entity.SongProducer
 import org.duckdns.reimu.memoria.entity.SongSinger
 import org.duckdns.reimu.memoria.model.param.AddSongParam
 import org.duckdns.reimu.memoria.model.param.UpdateSongParam
+import org.duckdns.reimu.memoria.repository.SongProducerRepository
 import org.duckdns.reimu.memoria.repository.SongRepository
 import org.duckdns.reimu.memoria.repository.SongSingerRepository
 import org.duckdns.reimu.memoria.util.RequestUtils
@@ -17,6 +19,7 @@ import javax.transaction.Transactional
 class SongService(
     private val songRepository: SongRepository,
     private val songSingerRepository: SongSingerRepository,
+    private val songProducerRepository: SongProducerRepository,
 ) {
     fun getList(): List<Song> {
         return songRepository.findAllByOrderByIdDesc()
@@ -33,23 +36,32 @@ class SongService(
 
     @Transactional
     fun add(addSongParam: AddSongParam): Song {
-        val musicDto = RequestUtils.makeMusicFrom(addSongParam.url)
-        musicDto.apply {
+        val songDto = RequestUtils.makeMusicFrom(addSongParam.url)
+        songDto.apply {
             parentId = addSongParam.parentId
             titleKorean = addSongParam.titleKorean
         }
-        val music = songRepository.save(musicDto.toEntity())
+        val song = songRepository.save(songDto.toEntity())
 
         songSingerRepository.saveAll(
             addSongParam.singerIds.map { singerId ->
                 SongSinger(
-                    songId = music.id,
+                    songId = song.id,
                     singerId = singerId
                 )
             }
         )
 
-        return music
+        songProducerRepository.saveAll(
+            addSongParam.producerIds.map { producerId ->
+                SongProducer(
+                    songId = song.id,
+                    producerId = producerId
+                )
+            }
+        )
+
+        return song
     }
 
     @Transactional

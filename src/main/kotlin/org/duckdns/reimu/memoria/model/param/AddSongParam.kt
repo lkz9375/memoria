@@ -5,4 +5,5 @@ data class AddSongParam(
     val url: String,
     val titleKorean: String,
     val singerIds: List<Long>,
+    val producerIds: List<Long>,
 )
