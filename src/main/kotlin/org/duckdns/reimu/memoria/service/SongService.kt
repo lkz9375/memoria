@@ -23,8 +23,7 @@ class SongService(
     }
 
     fun getListBySinger(singer: Singer): List<Song> {
-        val songsBySinger = songSingerRepository.findAllBySingerId(singer.id)
-        return songRepository.findAllById(songsBySinger.map { it.songId }).reversed()
+        return songRepository.findAllBySingerId(singer.id)
     }
 
     fun get(musicId: Long): Song {

@@ -1,10 +1,9 @@
 package org.duckdns.reimu.memoria.service
 
 import org.duckdns.reimu.memoria.config.MultipartFileProps
-import org.duckdns.reimu.memoria.entity.Song
 import org.duckdns.reimu.memoria.entity.Singer
+import org.duckdns.reimu.memoria.entity.Song
 import org.duckdns.reimu.memoria.model.param.AddSingerParam
-import org.duckdns.reimu.memoria.repository.SongSingerRepository
 import org.duckdns.reimu.memoria.repository.SingerRepository
 import org.springframework.stereotype.Service
 import java.io.File
@@ -14,7 +13,6 @@ import javax.transaction.Transactional
 @Service
 class SingerService(
     private val singerRepository: SingerRepository,
-    private val songSingerRepository: SongSingerRepository,
     private val multipartFileProps: MultipartFileProps,
 ) {
     fun getList(): List<Singer> {
@@ -26,10 +24,7 @@ class SingerService(
     }
 
     fun getSingersByMusic(song: Song): List<Singer> {
-        val musicSingers = songSingerRepository.findAllBySongId(song.id)
-        val singerIds = musicSingers.map { it.singerId }
-
-        return singerRepository.findAllById(singerIds)
+        return singerRepository.findAllBySongId(song.id)
     }
 
     @Transactional

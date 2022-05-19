@@ -13,7 +13,7 @@ data class SongSingerId(
  * 한 명의 가수는 여러 노래를 부를 수 있음
  */
 @Entity
-@Table(name = "songSinger")
+@Table(name = "song_singer")
 @IdClass(SongSingerId::class)
 class SongSinger(
     @Id
