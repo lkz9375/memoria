@@ -2,7 +2,6 @@ package org.duckdns.reimu.memoria.service
 
 import org.duckdns.reimu.memoria.config.MultipartFileProps
 import org.duckdns.reimu.memoria.entity.Singer
-import org.duckdns.reimu.memoria.entity.Song
 import org.duckdns.reimu.memoria.model.param.AddSingerParam
 import org.duckdns.reimu.memoria.repository.SingerRepository
 import org.springframework.stereotype.Service
@@ -23,8 +22,8 @@ class SingerService(
         return singerRepository.getById(singerId)
     }
 
-    fun getSingersByMusic(song: Song): List<Singer> {
-        return singerRepository.findAllBySongId(song.id)
+    fun getSingersBySongId(songId: Long): List<Singer> {
+        return singerRepository.findAllBySongId(songId)
     }
 
     @Transactional
