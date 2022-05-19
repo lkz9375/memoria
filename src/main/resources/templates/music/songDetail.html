@@ -67,6 +67,8 @@
             html = html.replaceAll('&', '&amp;');
             html = html.replaceAll('<', '&lt;');
             html = html.replaceAll('>', '&gt;');
+            html = html.replaceAll('"', '&quot;');
+            html = html.replaceAll('\'', '&#x27;');
             return html;
         }
 
