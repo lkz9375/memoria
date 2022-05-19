@@ -1,7 +1,9 @@
 package org.duckdns.reimu.memoria.controller.music
 
+import org.duckdns.reimu.memoria.model.param.AddProducerParam
 import org.duckdns.reimu.memoria.model.param.AddSongParam
 import org.duckdns.reimu.memoria.model.param.AddSingerParam
+import org.duckdns.reimu.memoria.service.ProducerService
 import org.duckdns.reimu.memoria.service.SongService
 import org.duckdns.reimu.memoria.service.SingerService
 import org.springframework.stereotype.Controller
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest
 class AdminController(
     private val songService: SongService,
     private val singerService: SingerService,
+    private val producerService: ProducerService,
 ) {
     @GetMapping
     fun manager(
@@ -34,7 +37,7 @@ class AdminController(
     }
 
     @PostMapping("/singer")
-    fun upload(
+    fun addSinger(
         request: HttpServletRequest,
         addSingerParam: AddSingerParam,
     ): String {
@@ -49,7 +52,7 @@ class AdminController(
     }
 
     @PostMapping("/song")
-    fun upload(
+    fun addSong(
         request: HttpServletRequest,
         addSongParam: AddSongParam,
     ): String {
@@ -59,6 +62,21 @@ class AdminController(
         }
 
         songService.add(addSongParam)
+
+        return "redirect:/music/admin"
+    }
+
+    @PostMapping("/producer")
+    fun addProducer(
+        request: HttpServletRequest,
+        addProducerParam: AddProducerParam,
+    ): String {
+        val cookie = WebUtils.getCookie(request, "admin")
+        if (cookie == null || cookie.value != "ReimuHakurei") {
+            throw SecurityException("권한이 부족합니다.")
+        }
+
+        producerService.add(addProducerParam)
 
         return "redirect:/music/admin"
     }
