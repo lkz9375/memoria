@@ -1,6 +1,5 @@
 package org.duckdns.reimu.memoria.service
 
-import org.duckdns.reimu.memoria.entity.Singer
 import org.duckdns.reimu.memoria.entity.Song
 import org.duckdns.reimu.memoria.entity.SongProducer
 import org.duckdns.reimu.memoria.entity.SongSinger
@@ -25,13 +24,17 @@ class SongService(
         return songRepository.findAllByOrderByIdDesc()
     }
 
-    fun getListBySinger(singer: Singer): List<Song> {
-        return songRepository.findAllBySingerId(singer.id)
+    fun getListBySingerId(singerId: Long): List<Song> {
+        return songRepository.findAllBySingerId(singerId)
     }
 
-    fun get(musicId: Long): Song {
-        return songRepository.findByIdOrNull(musicId)
-            ?: throw EntityNotFoundException("Unable to find org.duckdns.reimu.memoria.entity.Music with id $musicId")
+    fun getListByProducerId(producerId: Long): List<Song> {
+        return songRepository.findAllByProducerId(producerId)
+    }
+
+    fun get(songId: Long): Song {
+        return songRepository.findByIdOrNull(songId)
+            ?: throw EntityNotFoundException("Unable to find org.duckdns.reimu.memoria.entity.Music with id $songId")
     }
 
     @Transactional

@@ -32,7 +32,7 @@ class SingerController(
         model: Model
     ): String {
         val singer = singerService.get(singerId)
-        val songs = songService.getListBySinger(singer)
+        val songs = songService.getListBySingerId(singer.id)
 
         model.addAttribute("title", singer.nameKorean)
         model.addAttribute("singer", singer)

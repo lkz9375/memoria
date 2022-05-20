@@ -23,4 +23,19 @@ interface SongRepository : JpaRepository<Song, Long> {
         nativeQuery = true
     )
     fun findAllBySingerId(singerId: Long): List<Song>
+
+    @Query(value =
+    """
+            SELECT *
+            FROM song
+            WHERE id IN (
+                SELECT song_id
+                FROM song_producer
+                WHERE producer_id = :producerId
+            )
+            ORDER BY uploaded DESC
+        """,
+        nativeQuery = true
+    )
+    fun findAllByProducerId(producerId: Long): List<Song>
 }
