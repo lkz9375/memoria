@@ -11,7 +11,7 @@
   <h1>가수 리스트</h1>
   <div th:each="singer: ${singerList}" style="display: inline-block; width: 225px; text-align: center;">
     <a th:href="@{'/music/singer/' + ${singer.id}}">
-      <img th:src="${singer.thumbnail}" alt="singer-thumbnail" width="160" height="160" style="display: block; margin: 10px auto 10px auto;">
+      <img th:src="${singer.thumbnail}" data-thumbnail="/static/images/no-image.png" onerror="this.src = this.getAttribute('data-thumbnail');" alt="singer-thumbnail" width="160" height="160" style="display: block; margin: 10px auto 10px auto;">
     </a>
     <a th:href="@{'/music/singer/' + ${singer.id}}" th:text="${singer.nameKorean}"></a>
   </div>

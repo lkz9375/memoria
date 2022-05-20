@@ -10,7 +10,7 @@
   <h1>작곡가 리스트</h1>
   <div th:each="producer: ${producerList}" style="display: inline-block; width: 225px; text-align: center;">
     <a th:href="@{'/music/producer/' + ${producer.id}}">
-      <img th:src="${producer.thumbnail}" alt="producer-thumbnail" width="160" height="160" style="display: block; margin: 10px auto 10px auto;">
+      <img th:src="${producer.thumbnail}" data-thumbnail="/static/images/no-image.png" onerror="this.src = this.getAttribute('data-thumbnail');" alt="producer-thumbnail" width="160" height="160" style="display: block; margin: 10px auto 10px auto;">
     </a>
     <a th:href="@{'/music/producer/' + ${producer.id}}" th:text="${producer.nameKorean}"></a>
   </div>
