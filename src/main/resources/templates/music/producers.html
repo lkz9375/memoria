@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{music/layout/default_layout}">
+
+<th:block layout:fragment="content">
+  <h1>요약</h1>
+  <div th:text="'현재 ' + ${producerList.size()} + '명의 작곡가가 있습니다.'"></div>
+
+  <h1>작곡가 리스트</h1>
+  <div th:each="producer: ${producerList}" style="display: inline-block; width: 225px; text-align: center;">
+    <a th:href="@{'/music/producer/' + ${producer.id}}">
+      <img th:src="${producer.thumbnail}" alt="producer-thumbnail" width="160" height="160" style="display: block; margin: 10px auto 10px auto;">
+    </a>
+    <a th:href="@{'/music/producer/' + ${producer.id}}" th:text="${producer.nameKorean}"></a>
+  </div>
+</th:block>
+
+</html>

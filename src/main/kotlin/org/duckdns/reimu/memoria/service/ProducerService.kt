@@ -14,6 +14,9 @@ class ProducerService(
     private val producerRepository: ProducerRepository,
     private val multipartFileProps: MultipartFileProps,
 ) {
+    fun getAllList(): List<Producer> {
+        return producerRepository.findAll()
+    }
     fun getList(songId: Long): List<Producer> {
         return producerRepository.findAllBySongId(songId)
     }
