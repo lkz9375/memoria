@@ -4,35 +4,39 @@
       layout:decorate="~{music/layout/default_layout}">
 
 <th:block layout:fragment="content">
-  <figure style="width: 620px; height: 860px; line-height: 0; margin: 0; text-align: center; display: inline-block; vertical-align: top; position: relative;">
-    <img src="/static/images/reimu-home.jpg" alt="reimu" width="620px" height="860px">
-    <figcaption style="color: #ffffff; background: rgba(55, 55, 55, 0.5); padding: 1em; line-height: 1; position: absolute; box-sizing: border-box; width: 100%; bottom: 0;">https://twitter.com/Ri0177/status/1459453597553356801</figcaption>
-  </figure>
+  <div class="container">
+    <div class="item">
+      <figure class="enter-image">
+        <img srcset="/static/images/reimu-home.jpg 1.3x" alt="reimu">
+        <figcaption>https://twitter.com/Ri0177/status/1459453597553356801</figcaption>
+      </figure>
+    </div>
 
-  <div style="display: inline-block; vertical-align: top; margin-left: 20px;">
-    <h1>대충 소개글</h1>
-    <p>
-      안녕하세요, 현재 여러 애니/보카로/우타이테 오픈채팅방에서 활동하고 있는 <a href="https://open.kakao.com/me/rei_mu">Reimu</a>입니다.<br>
-      그냥 심심해서 제가 듣는 보카로/우타이테 노래를 모으는 사이트를 만들어 보았습니다.
-    </p>
-    <p>
-      뭔가 있었으면 하는 기능들의 제보는 언제든지 받습니다.<br>
-      편하게 갠톡 걸어주시면 참고해서 반영하도록 하겠습니다(물론 반영되지 않을 수도 있습니다).
-    </p>
+    <div class="item">
+      <h1>대충 소개글</h1>
+      <p>
+        안녕하세요, 현재 여러 서브컬쳐 오픈채팅방에서 활동하고 있는 <a href="https://open.kakao.com/me/rei_mu">Reimu</a>입니다.<br>
+        이 사이트는 제가 듣는 보카로/우타이테 노래를 정리한 사이트입니다.
+      </p>
+      <p>
+        뭔가 있었으면 하는 기능들의 제보는 언제든지 받습니다.<br>
+        편하게 갠톡 걸어주시면 참고해서 반영하도록 하겠습니다(물론 반영되지 않을 수도 있습니다).
+      </p>
 
-    <h1>업데이트 로그</h1>
-    <ul>
-      <li>2022-05-20: 작곡가 정보 추가</li>
-      <li>2022-05-16: 관리 페이지 및 가수 정보 추가</li>
-      <li>2022-05-08: 댓글 기능 추가</li>
-      <li>2022-05-06: 니코동 추가</li>
-      <li>2022-05-01: DB 테이블 추가</li>
-      <li>2022-04-30: 페이지 동선 설계 및 다듬기</li>
-      <li>2022-04-25: 배포 환경 구축</li>
-      <li>2022-04-24: 추가한 노래의 썸네일만 보여주는 페이지 제작</li>
-      <li>2022-04-23: 간단하게 PoC 후 프로토타입 작성</li>
-      <li>2022-04-16: 프로젝트 개시</li>
-    </ul>
+      <h1>업데이트 로그</h1>
+      <ul>
+        <li>2022-05-20: 작곡가 정보 추가</li>
+        <li>2022-05-16: 관리 페이지 및 가수 정보 추가</li>
+        <li>2022-05-08: 댓글 기능 추가</li>
+        <li>2022-05-06: 니코동 추가</li>
+        <li>2022-05-01: DB 테이블 추가</li>
+        <li>2022-04-30: 페이지 동선 설계 및 다듬기</li>
+        <li>2022-04-25: 배포 환경 구축</li>
+        <li>2022-04-24: 추가한 노래의 썸네일만 보여주는 페이지 제작</li>
+        <li>2022-04-23: 간단하게 PoC 후 프로토타입 작성</li>
+        <li>2022-04-16: 프로젝트 개시</li>
+      </ul>
+    </div>
   </div>
 </th:block>
 

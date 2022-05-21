@@ -1,21 +1,39 @@
 @font-face {
     font-family: 'Noto Sans Korean';
     font-style: normal;
+    font-weight: 300;
+    src: url(//script.ebay.co.kr/fonts/NotoSansKR-Light-Hestia.eot), url(//script.ebay.co.kr/fonts/NotoSansKR-Light-Hestia.eot?#iefix) format("embedded-opentype");
+    src: local("Noto Sans Light"), local("NotoSans-Light"), url(//script.ebay.co.kr/fonts/NotoSansKR-Light-Hestia.woff) format("woff"), url(//script.ebay.co.kr/fonts/NotoSansKR-Light-Hestia.otf) format("opentype");
+}
+@font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
     font-weight: 500;
     src: url(//script.ebay.co.kr/fonts/NotoSansKR-DemiLight-Hestia.eot), url(//script.ebay.co.kr/fonts/NotoSansKR-DemiLight-Hestia.eot?#iefix) format("embedded-opentype");
     src: local("Noto Sans DemiLight"), local("NotoSans-DemiLight"), url(//script.ebay.co.kr/fonts/NotoSansKR-DemiLight-Hestia.woff) format("woff"), url(//script.ebay.co.kr/fonts/NotoSansKR-DemiLight-Hestia.otf) format("opentype");
 }
+@font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
+    font-weight: bold;
+    src: url(//script.ebay.co.kr/fonts/NotoSansKR-Bold-Hestia.eot), url(//script.ebay.co.kr/fonts/NotoSansKR-Bold-Hestia.eot?#iefix) format("embedded-opentype");
+    src: local("Noto Sans Bold"), local("NotoSans-Bold"), url(//script.ebay.co.kr/fonts/NotoSansKR-Bold-Hestia.woff) format("woff"), url(//script.ebay.co.kr/fonts/NotoSansKR-Bold-Hestia.otf) format("opentype");
+}
 
+/* global */
 body {
     margin: 0;
     font-family: "Noto Sans Korean", "Open Sans", "malgun gothic", "Nanum Gothic", dotum, arial, sans-serif;
-    font-weight: normal;
+    font-weight: 500;
+}
+h1 {
+    font-weight: bold;
+    text-decoration: solid underline #d70000 3px;
+    text-underline-position: under;
+    text-decoration-style: double;
 }
 
-.section {
-    padding: 10px;
-}
-
+/* navigation */
 .nav {
     list-style-type: none;
     margin: 0;
@@ -27,11 +45,9 @@ body {
     top: 0;
     z-index: 1;
 }
-
 .nav li {
     float: left;
 }
-
 .nav li a {
     display: block;
     color: white;
@@ -39,16 +55,56 @@ body {
     padding: 14px 16px;
     text-decoration: none;
 }
-
 .nav li a:hover:not(.active) {
     background-color: #111;
 }
-
 .nav .active {
     background-color: #9b0000;
 }
-
 .nav li a.active:hover {
     background-color: #770000;
 }
 
+/* section */
+.section {
+    padding: 10px;
+}
+.section .container {
+    display: flex;
+}
+.section .container .item {
+    margin: 7px;
+}
+.section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.section li {
+    padding-left: 16px;
+}
+.section li::before {
+    content: "☯";
+    padding-right: 8px;
+    color: #d70000;
+}
+
+/* custom */
+.enter-image {
+    line-height: 0;
+    margin: 0;
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+.enter-image figcaption {
+    color: #ffffff;
+    background: rgba(55, 55, 55, 0.5);
+    padding: 1em;
+    line-height: 1;
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    bottom: 0;
+}
