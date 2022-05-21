@@ -1,5 +1,15 @@
+@font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
+    font-weight: 500;
+    src: url(//script.ebay.co.kr/fonts/NotoSansKR-DemiLight-Hestia.eot), url(//script.ebay.co.kr/fonts/NotoSansKR-DemiLight-Hestia.eot?#iefix) format("embedded-opentype");
+    src: local("Noto Sans DemiLight"), local("NotoSans-DemiLight"), url(//script.ebay.co.kr/fonts/NotoSansKR-DemiLight-Hestia.woff) format("woff"), url(//script.ebay.co.kr/fonts/NotoSansKR-DemiLight-Hestia.otf) format("opentype");
+}
+
 body {
     margin: 0;
+    font-family: "Noto Sans Korean", "Open Sans", "malgun gothic", "Nanum Gothic", dotum, arial, sans-serif;
+    font-weight: normal;
 }
 
 .section {
