@@ -69,10 +69,14 @@ h1 {
 .section {
     padding: 10px;
 }
-.section .container {
+.section .col-container {
+    display: flex;
+    flex-direction: column;
+}
+.section .row-container {
     display: flex;
 }
-.section .container .item {
+.section .item {
     margin: 7px;
 }
 .section ul {
@@ -86,6 +90,14 @@ h1 {
 .section li::before {
     content: "☯";
     padding-right: 8px;
+    color: #d70000;
+}
+.section a {
+    text-decoration: none;
+    color: #d70000;
+}
+.section a:hover {
+    text-decoration: underline;
     color: #d70000;
 }
 
@@ -107,4 +119,24 @@ h1 {
     box-sizing: border-box;
     width: 100%;
     bottom: 0;
+}
+.song-elem {
+    display: inline-block;
+    vertical-align: top;
+    width: 250px;
+    padding: 10px;
+}
+.song-thumb {
+    width: 192px;
+    height: 106px;
+    overflow: hidden;
+    margin: 10px auto 10px auto;
+}
+.song-thumb img {
+    width: 192px;
+    height: 144px;
+    margin: -19px 0 -19px 0;
+}
+.favicon {
+    vertical-align: top;
 }

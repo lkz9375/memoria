@@ -4,26 +4,32 @@
       layout:decorate="~{music/layout/default_layout}">
 
 <th:block layout:fragment="content">
-  <h1>요약</h1>
-  <div th:text="'현재 ' + ${songList.size()} + '개의 노래가 있습니다.'"></div>
-  <div th:text="'모두 듣는다면 ' + ${length / 86400} + '일 ' + ${length % 86400 / 3600} + '시간 ' + ${length % 3600 / 60} + '분 ' + ${length % 60} + '초가 소요됩니다.'"></div>
-
-  <h1>노래 목록</h1>
-  <div th:each="song: ${songList}" style="display: inline-block; vertical-align: top; width: 250px;">
-    <div style="padding: 10px 10px 10px 10px">
-      <div style="width:192px; height:106px; overflow:hidden; margin: 10px auto 10px auto;">
-        <a th:href="@{'/music/song/' + ${song.id}}">
-          <img th:if="${song.isYoutube()}" th:src="${song.thumbnailUrl}" alt="song-thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
-          <img th:if="${!song.isYoutube()}" th:src="${song.thumbnailUrl} + '.L'" th:data-thumbnail="${song.thumbnailUrl}" onerror="this.src = this.getAttribute('data-thumbnail');" alt="song-thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
-        </a>
+  <div class="col-container">
+    <div class="item">
+      <h1>요약</h1>
+      <p th:with="day = ${length / 86400}, hour = ${length % 86400 / 3600}"
+        th:utext="
+        '현재 <strong>' + ${songList.size()} + '</strong>개의 노래가 있습니다.'
+        + '<br>모두 듣는다면 <strong>' + ${day == 0 ? '' : day + '일 '} + ${hour == 0 ? '' : hour + '시간 '} + ${length % 3600 / 60} + '분 ' + ${length % 60} + '초</strong>가 소요됩니다.'
+      "></p>
+    </div>
+    </div>
+    <div class="item">
+      <h1>노래 목록</h1>
+      <div th:each="song: ${songList}" class="song-elem">
+        <div class="song-thumb">
+          <a th:href="@{'/music/song/' + ${song.id}}">
+            <img th:if="${song.isYoutube()}" th:src="${song.thumbnailUrl}" alt="song-thumbnail">
+            <img th:if="${!song.isYoutube()}" th:src="${song.thumbnailUrl} + '.L'" th:data-thumbnail="${song.thumbnailUrl}" onerror="this.src = this.getAttribute('data-thumbnail');" alt="song-thumbnail">
+          </a>
+        </div>
+        <strong>제목:</strong> <a th:href="@{'/music/song/' + ${song.id}}" th:text="${song.titleKorean}"></a>
+        <img class="favicon" th:src="${song.favicon}" width="20" height="20" th:alt="${song.site.name().toLowerCase()}">
+        <br>
+        <strong>길이:</strong> <span th:text="${song.length / 60} + '분 ' + ${song.length % 60} + '초'"></span>
+        <br>
+        <strong>업로드:</strong> <span th:text="${song.uploaded}"></span>
       </div>
-      <strong>제목:</strong> <a th:href="@{'/music/song/' + ${song.id}}" th:text="${song.titleKorean}"></a>
-      <img th:if="${!song.isYoutube()}" src="https://nicovideo.cdn.nimg.jp/web/images/favicon/32.png" width="20" height="20" alt="nicovideo" style="vertical-align: top;">
-      <img th:if="${song.isYoutube()}" src="https://www.youtube.com/s/desktop/fc7b0168/img/favicon_32x32.png" width="20" height="20" alt="youtube" style="vertical-align: top;">
-      <br>
-      <strong>길이:</strong> <span th:text="${song.length / 60} + '분 ' + ${song.length % 60} + '초'"></span>
-      <br>
-      <strong>업로드:</strong> <span th:text="${song.uploaded}"></span>
     </div>
   </div>
 </th:block>

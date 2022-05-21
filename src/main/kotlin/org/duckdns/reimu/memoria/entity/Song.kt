@@ -40,5 +40,11 @@ class Song(
             else -> "https://embed.nicovideo.jp/watch/$urlId"
         }
 
+    val favicon: String
+        get() = when (site) {
+            Site.YOUTUBE -> "https://www.youtube.com/s/desktop/fc7b0168/img/favicon_32x32.png"
+            else -> "https://nicovideo.cdn.nimg.jp/web/images/favicon/32.png"
+        }
+
     fun isYoutube() = site == Site.YOUTUBE
 }
