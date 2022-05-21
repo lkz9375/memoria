@@ -14,7 +14,7 @@
     </div>
     <div class="item">
       <h1>가수 목록</h1>
-      <div th:each="singer: ${singerList}" class="creator-elem">
+      <div class="creator-elem" th:each="singer: ${singerList}">
         <a th:href="@{'/music/singer/' + ${singer.id}}">
           <img th:src="${singer.thumbnail}" data-thumbnail="/static/images/no-image.png" onerror="this.src = this.getAttribute('data-thumbnail');" alt="singer-thumbnail" width="160" height="160">
         </a>
