@@ -13,7 +13,6 @@
         + '<br>모두 듣는다면 <strong>' + ${day == 0 ? '' : day + '일 '} + ${hour == 0 ? '' : hour + '시간 '} + ${length % 3600 / 60} + '분 ' + ${length % 60} + '초</strong>가 소요됩니다.'
       "></p>
     </div>
-    </div>
     <div class="item">
       <h1>노래 목록</h1>
       <div th:each="song: ${songList}" class="song-elem">

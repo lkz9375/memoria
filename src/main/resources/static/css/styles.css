@@ -131,12 +131,30 @@ h1 {
     height: 106px;
     overflow: hidden;
     margin: 10px auto 10px auto;
+    transition: transform .2s;
 }
 .song-thumb img {
     width: 192px;
     height: 144px;
     margin: -19px 0 -19px 0;
 }
+.song-thumb:hover {
+    transform: scale(1.05);
+}
 .favicon {
     vertical-align: top;
+}
+.creator-elem {
+    display: inline-block;
+    width: 200px;
+    text-align: center;
+}
+.creator-elem img {
+    display: block;
+    margin: 10px auto 10px auto;
+    box-shadow: 5px 5px 10px #c0c0c0;
+    transition: transform .2s;
+}
+.creator-elem img:hover {
+    transform: scale(1.05);
 }
