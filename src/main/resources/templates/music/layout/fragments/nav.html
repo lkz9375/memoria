@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- Nav -->
+<th:block th:fragment="navbarFragment">
+  <ul class="nav">
+    <li><a th:classappend="${active} == 1 ? active : ''" th:href="@{/music}">홈</a></li>
+    <li><a th:classappend="${active} == 2 ? active : ''" th:href="@{/music/songs}">노래 목록</a></li>
+    <li><a th:classappend="${active} == 3 ? active : ''" th:href="@{/music/singers}">가수 목록</a></li>
+    <li><a th:classappend="${active} == 4 ? active : ''" th:href="@{/music/producers}">작곡가 목록</a></li>
+    <li style="float: right;"><a th:classappend="${active} == 0 ? active : ''" th:href="@{/music/admin}">관리 페이지</a></li>
+  </ul>
+</th:block>
+
+</html>

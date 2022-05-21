@@ -19,11 +19,12 @@ class SongController(
     private val producerService: ProducerService,
 ) {
     @GetMapping("/songs")
-    fun getMusicList(model: Model): String {
+    fun getSongList(model: Model): String {
         val songList = songService.getList()
         val totalLength = songList.sumOf { music -> music.length }
 
         model.addAttribute("title", "Songs")
+        model.addAttribute("active", 2)
         model.addAttribute("songList", songList)
         model.addAttribute("length", totalLength)
 
@@ -31,7 +32,7 @@ class SongController(
     }
 
     @GetMapping("/song/{songId}")
-    fun getMusicDetail(
+    fun getSongDetail(
         @PathVariable(name = "songId") songId: Long = 0,
         model: Model
     ): String {

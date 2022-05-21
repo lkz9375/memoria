@@ -15,10 +15,11 @@ class ProducerController(
     private val songService: SongService,
 ) {
     @GetMapping("/producers")
-    fun getSingerList(model: Model): String {
+    fun getProducerList(model: Model): String {
         val producerList = producerService.getAllList()
 
         model.addAttribute("title", "Producers")
+        model.addAttribute("active", 4)
         model.addAttribute("producerList", producerList)
 
         return "music/producers"

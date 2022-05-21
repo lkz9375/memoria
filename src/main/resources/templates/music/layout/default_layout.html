@@ -6,8 +6,10 @@
 <th:block th:replace="music/layout/fragments/head :: headFragment"></th:block>
 
 <body>
-  <th:block th:replace="music/layout/fragments/top :: topbarFragment"></th:block>
-  <th:block layout:fragment="content"></th:block>
+  <th:block th:replace="music/layout/fragments/nav :: navbarFragment"></th:block>
+  <div class="section">
+    <th:block layout:fragment="content"></th:block>
+  </div>
 </body>
 
 </html>

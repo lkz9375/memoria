@@ -32,6 +32,7 @@ class AdminController(
         }
 
         model.addAttribute("title", "Admin")
+        model.addAttribute("active", 0)
 
         return "music/admin"
     }

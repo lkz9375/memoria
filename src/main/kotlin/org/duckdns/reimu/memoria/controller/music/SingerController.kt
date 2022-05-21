@@ -20,6 +20,7 @@ class SingerController(
         val robotCount = singerList.count { it.isRobot }
 
         model.addAttribute("title", "Singers")
+        model.addAttribute("active", 3)
         model.addAttribute("singerList", singerList)
         model.addAttribute("robotCount", robotCount)
 

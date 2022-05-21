@@ -11,6 +11,7 @@ class HomeController {
     @GetMapping
     fun home(model: Model): String {
         model.addAttribute("title", "Home")
+        model.addAttribute("active", 1)
         return "music/home"
     }
 }

@@ -8,7 +8,7 @@
   <div th:text="'현재 ' + ${songList.size()} + '개의 노래가 있습니다.'"></div>
   <div th:text="'모두 듣는다면 ' + ${length / 86400} + '일 ' + ${length % 86400 / 3600} + '시간 ' + ${length % 3600 / 60} + '분 ' + ${length % 60} + '초가 소요됩니다.'"></div>
 
-  <h1>노래 리스트</h1>
+  <h1>노래 목록</h1>
   <div th:each="song: ${songList}" style="display: inline-block; vertical-align: top; width: 250px;">
     <div style="padding: 10px 10px 10px 10px">
       <div style="width:192px; height:106px; overflow:hidden; margin: 10px auto 10px auto;">
