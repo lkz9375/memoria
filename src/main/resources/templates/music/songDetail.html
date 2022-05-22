@@ -5,10 +5,12 @@
 
 <th:block layout:fragment="content">
   <div class="row-container">
-    <div class="col-container">
+    <div class="col-container song-detail">
       <div class="item">
         <h1>동영상</h1>
-        <iframe width="560" height="315" th:src="${song.embedTag}" title="video player" style="border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="align-center">
+          <iframe width="560" height="315" th:src="${song.embedTag}" title="video player" style="border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
       </div>
       <div class="item">
         <h1>노래 정보</h1>

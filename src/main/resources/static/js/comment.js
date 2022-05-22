@@ -67,6 +67,14 @@ async function reload() {
                 `;
             });
 
+            if (html === '') {
+                html = `
+                    <div class="align-center" style="height: 300px">
+                      <p class="no-comment"></p>
+                    </div>
+                `
+            }
+
             document.getElementById('commentList').innerHTML = html;
         });
 }

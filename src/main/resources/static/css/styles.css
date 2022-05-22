@@ -151,6 +151,9 @@ textarea:focus, input:focus {
 .song-thumb:hover {
     transform: scale(1.05);
 }
+.song-detail {
+    width: 600px;
+}
 
 .favicon {
     vertical-align: sub;
@@ -249,6 +252,10 @@ textarea:focus, input:focus {
 .comment-list .comment-body {
     line-break: anywhere;
     white-space: pre-line;
+}
+.no-comment::before {
+    content: "작성된 댓글이 없습니다. 첫번째로 댓글을 달아보세요!";
+    color: #888888;
 }
 
 .tooltip {
