@@ -9,7 +9,7 @@
       <h1>요약</h1>
       <p th:with="day = ${length / 86400}, hour = ${length % 86400 / 3600}"
         th:utext="
-        '현재 <strong>' + ${songList.size()} + '</strong>개의 노래가 있습니다.'
+        '현재 <strong>' + ${songList.size()} + '개</strong>의 노래가 있습니다.'
         + '<br>모두 듣는다면 <strong>' + ${day == 0 ? '' : day + '일 '} + ${hour == 0 ? '' : hour + '시간 '} + ${length % 3600 / 60} + '분 ' + ${length % 60} + '초</strong>가 소요됩니다.'
       "></p>
     </div>

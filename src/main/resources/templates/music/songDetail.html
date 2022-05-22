@@ -4,180 +4,73 @@
       layout:decorate="~{music/layout/default_layout}">
 
 <th:block layout:fragment="content">
-  <div style="display: inline-block; width: 560px;">
-    <h1>동영상</h1>
-    <iframe width="560" height="315" th:src="${song.embedTag}" title="video player" style="border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-    <h1>노래 정보</h1>
-    <ul>
-      <li>
-        <strong>작곡가: </strong>
-        <span th:each="producer: ${producerList}">
+  <div class="row-container">
+    <div class="col-container">
+      <div class="item">
+        <h1>동영상</h1>
+        <iframe width="560" height="315" th:src="${song.embedTag}" title="video player" style="border: 0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="item">
+        <h1>노래 정보</h1>
+        <ul>
+          <li>
+            <strong>작곡가: </strong>
+            <span th:each="producer: ${producerList}">
           <a th:href="@{'/music/producer/' + ${producer.id}}"><span th:text="${producer.nameKorean}"></span></a>
         </span>
-      </li>
-      <li>
-        <strong>가수: </strong>
-        <span th:each="singer: ${singerList}">
+          </li>
+          <li>
+            <strong>가수: </strong>
+            <span th:each="singer: ${singerList}">
           <a th:href="@{'/music/singer/' + ${singer.id}}"><span th:text="${singer.nameKorean}"></span></a>
         </span>
-      </li>
-      <li>
-        <strong>원제목: </strong>
-        <span th:text="${song.title}"></span>
-      </li>
-      <li>
-        <strong>제목: </strong>
-        <span th:text="${song.titleKorean}"></span>
-      </li>
-      <li>
-        <strong>길이: </strong>
-        <span th:text="${song.length / 60} + '분 ' + ${song.length % 60} + '초'"></span>
-      </li>
-      <li>
-        <strong>업로드: </strong>
-        <span th:text="${song.uploaded}"></span>
-      </li>
-    </ul>
-  </div>
-
-  <div style="display: inline-block; vertical-align: top; margin-left: 20px; max-width: 800px; width: auto;">
-    <h1>댓글</h1>
-    <label>
-      <textarea id="comment-body" name="body" placeholder="댓글 내용을 입력해주세용" maxlength="200" rows="5" cols="50"></textarea>
-    </label>
-    <br>
-    <label>
-      <input id="comment-nickname" type="text" name="nickname" placeholder="닉네임" maxlength="20" size="20">
-    </label>
-    <label>
-      <input id="comment-password" type="password" name="password" placeholder="비밀번호" maxlength="32" size="10">
-    </label>
-    <button type="submit" onclick="saveCommentAndReload()">댓글 작성</button>
-
-    <div id="commentList" style="overflow: scroll; overflow-x: hidden; height: auto; max-height: 600px; margin-top: 10px;">
-      <div th:each="comment, index : ${commentList}">
-        <strong th:text="'#' + ${commentList.size - index.index} + '. '"></strong>
-        <strong th:text="${comment.nickname}"></strong>
-        <span th:text="'(' + ${#strings.arraySplit(comment.ip, '.')[0]} + '.' + ${#strings.arraySplit(comment.ip, '.')[1]} + ')'"></span>
-        <span th:text="${#temporals.format(comment.created, 'yyyy-MM-dd HH:mm:ss')}"></span>
-        <button type="button" th:onclick="|deleteComment(${comment.id})|">삭제</button>
-        <br>
-        <p th:text="${comment.body}" style="line-break: anywhere; white-space: pre-line;"></p>
-        <hr th:if="${!index.last}">
+          </li>
+          <li>
+            <strong>원제목: </strong>
+            <span th:text="${song.title}"></span>
+          </li>
+          <li>
+            <strong>제목: </strong>
+            <span th:text="${song.titleKorean}"></span>
+          </li>
+          <li>
+            <strong>길이: </strong>
+            <span th:text="${song.length / 60} + '분 ' + ${song.length % 60} + '초'"></span>
+          </li>
+          <li>
+            <strong>업로드: </strong>
+            <span th:text="${song.uploaded}"></span>
+          </li>
+        </ul>
       </div>
     </div>
+    <div class="col-container fit-rest">
+      <div class="item">
+        <h1>댓글</h1>
+        <div class="comment">
+          <textarea id="comment-body" name="body" placeholder="댓글 내용을 입력해주세용" maxlength="200" rows="7"></textarea>
+          <div class="row-container">
+            <div class="fit-rest"></div>
+            <input id="comment-nickname" type="text" name="nickname" placeholder="닉네임" maxlength="20" size="20">
+            <input id="comment-password" type="password" name="password" placeholder="비밀번호" maxlength="32" size="20">
+            <button type="submit" onclick="saveCommentAndReload()">댓글 작성</button>
+          </div>
+        </div>
 
-    <script th:inline="javascript">
-        function escapeXSS(html) {
-            html = html.replaceAll('&', '&amp;');
-            html = html.replaceAll('<', '&lt;');
-            html = html.replaceAll('>', '&gt;');
-            html = html.replaceAll('"', '&quot;');
-            html = html.replaceAll('\'', '&#x27;');
-            return html;
-        }
-
-        /*<![CDATA[*/
-        /**
-         * 댓글 추가 및 새로 갱신
-         */
-        function saveCommentAndReload() {
-            const body = document.getElementById('comment-body').value;
-            const nickname = document.getElementById('comment-nickname').value;
-            const password = document.getElementById('comment-password').value;
-
-            document.getElementById('comment-body').value = '';
-            document.getElementById('comment-nickname').value = '';
-            document.getElementById('comment-password').value = '';
-
-            const songId = "[[${song.id}]]";
-            fetch(`/api/comment/${songId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    'nickname': nickname,
-                    'password': password,
-                    'body': body
-                }),
-            }).then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-            }).then(() => {
-                reload();
-            }).catch(() => {
-                alert('뭔가 에러난듯??');
-            })
-        }
-
-        async function reload() {
-            const songId = "[[${song.id}]]";
-            fetch(`/api/comment/${songId}`)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                })
-                .then(json => {
-                    let html = '';
-                    const total = Object.keys(json).length;
-
-                    json.forEach((obj, index) => {
-                        const ipList = obj.ip.split('.');
-                        const created = new Date(Date.parse(obj.created));
-                        obj.body = escapeXSS(obj.body);
-                        obj.nickname = escapeXSS(obj.nickname);
-
-                        html += `
-                            <div>
-                              <strong>#${total - index}. </strong>
-                              <strong>${obj.nickname}</strong>
-                              <span>(${ipList[0]}.${ipList[1]})</span>
-                              <span>${created.getFullYear()}-${String(created.getMonth() + 1).padStart(2, '0')}-${String(created.getDate()).padStart(2, '0')} ${String(created.getHours()).padStart(2, '0')}:${String(created.getMinutes()).padStart(2, '0')}:${String(created.getSeconds()).padStart(2, '0')}</span>
-                              <button type="button" onclick="deleteComment(${obj.id})">삭제</button>
-                              <br>
-                              <p style="line-break: anywhere; white-space: pre-line;" >${obj.body}</p>
-                        `;
-
-                        if (document.getElementById('commentList').innerHTML.trim().length > 0) {
-                            html += `<hr>`;
-                        }
-                        html += `</div>`;
-                    });
-
-                    document.getElementById('commentList').innerHTML = html;
-                });
-        }
-
-        function deleteComment(commentId) {
-            const password = prompt('비밀번호를 입력해주세요.');
-            fetch(`/api/comment/${commentId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    'password': password,
-                }),
-            }).then(response => {
-                if (response.ok) {
-                    return response.json();
-                }
-                throw Error('비밀번호가 올바르지 않습니다.');
-            }).then(() => {
-                reload();
-            }).catch(e => {
-                alert(e.message);
-            })
-        }
-
-        /*]]>*/
-    </script>
-
+        <div class="comment comment-list" id="commentList">
+          <div th:each="comment, index : ${commentList}">
+            <strong th:text="${comment.nickname}"></strong>
+            <span class="date" th:text="${#temporals.format(comment.created, 'yyyy-MM-dd HH:mm:ss')}"></span>
+            <button type="button" th:onclick="|deleteComment(${comment.id})|" style="float: right;">삭제</button>
+            <br>
+            <p th:text="${comment.body}" style="line-break: anywhere; white-space: pre-line;"></p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <script th:inline="javascript" th:src="@{/static/js/comment.js}"></script>
 </th:block>
 
 </html>

@@ -32,6 +32,9 @@ h1 {
     text-underline-position: under;
     text-decoration-style: double;
 }
+textarea:focus, input:focus {
+    outline: none;
+}
 
 /* navigation */
 .nav {
@@ -120,10 +123,11 @@ h1 {
     width: 100%;
     bottom: 0;
 }
+
 .song-elem {
     display: inline-block;
     vertical-align: top;
-    width: 250px;
+    width: 230px;
     padding: 10px;
 }
 .song-thumb {
@@ -136,14 +140,16 @@ h1 {
 .song-thumb img {
     width: 192px;
     height: 144px;
-    margin: -19px 0 -19px 0;
+    margin: -19px 0;
 }
 .song-thumb:hover {
     transform: scale(1.05);
 }
+
 .favicon {
-    vertical-align: top;
+    vertical-align: sub;
 }
+
 .creator-elem {
     display: inline-block;
     width: 200px;
@@ -151,10 +157,108 @@ h1 {
 }
 .creator-elem img {
     display: block;
-    margin: 10px auto 10px auto;
+    margin: 10px auto;
     box-shadow: 5px 5px 10px #c0c0c0;
     transition: transform .2s;
 }
 .creator-elem img:hover {
     transform: scale(1.05);
+}
+
+.fit-rest {
+    flex: 1;
+}
+.comment {
+    width: auto;
+    min-width: 560px;
+    max-width: 800px;
+}
+.comment textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    resize: none;
+    border: 2px solid #d70000;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 15px;
+}
+.comment input {
+    box-sizing: border-box;
+    padding: 3px 10px;
+    border: 2px solid #d70000;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 15px;
+}
+.comment input + input {
+    border-left: 0;
+}
+.comment button {
+    background-color: #d70000;
+    vertical-align: baseline;
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 5px 9px;
+}
+.comment input + button {
+    margin-left: -2px;
+}
+.comment button:hover {
+    background-color: #9b0000;
+}
+
+.comment-list {
+    overflow: hidden;
+    height: auto;
+    max-height: 600px;
+    margin-top: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+.comment-list .ip {
+    color: grey;
+}
+.comment-list .date {
+    font-size: 70%;
+    margin-left: 7px;
+}
+.comment-list div + div {
+    border-top: 2px dashed #d70000;
+    padding-top: 20px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 110%;
+}
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+}
+.tooltip .tooltip-text::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    right: 100%; /* To the left of the tooltip */
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
 }
