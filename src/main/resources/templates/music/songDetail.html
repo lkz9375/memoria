@@ -58,12 +58,8 @@
         </div>
 
         <div class="comment comment-list" id="commentList">
-          <div th:each="comment, index : ${commentList}">
-            <strong th:text="${comment.nickname}"></strong>
-            <span class="date" th:text="${#temporals.format(comment.created, 'yyyy-MM-dd HH:mm:ss')}"></span>
-            <button type="button" th:onclick="|deleteComment(${comment.id})|" style="float: right;">삭제</button>
-            <br>
-            <p th:text="${comment.body}" style="line-break: anywhere; white-space: pre-line;"></p>
+          <div class="align-center" style="height: 300px">
+            <div class="yin-yang"></div>
           </div>
         </div>
       </div>
@@ -71,6 +67,8 @@
   </div>
 
   <script th:inline="javascript" th:src="@{/static/js/comment.js}"></script>
+  <script>reload();</script>
+
 </th:block>
 
 </html>

@@ -1,10 +1,10 @@
-function escapeXSS(html) {
-    html = html.replaceAll('&', '&amp;');
-    html = html.replaceAll('<', '&lt;');
-    html = html.replaceAll('>', '&gt;');
-    html = html.replaceAll('"', '&quot;');
-    html = html.replaceAll('\'', '&#x27;');
-    return html;
+function escapeXss(html) {
+    return html
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll('\'', '&#x27;');
 }
 
 /**
@@ -35,7 +35,7 @@ function saveCommentAndReload() {
             return response.json();
         }
     }).then(() => {
-        reload();
+        void reload();
     }).catch(() => {
         alert('뭔가 에러난듯??');
     })
@@ -51,29 +51,20 @@ async function reload() {
         })
         .then(json => {
             let html = '';
-            const total = Object.keys(json).length;
 
-            json.forEach((obj, index) => {
-                const ipList = obj.ip.split('.');
+            json.forEach(obj => {
                 const created = new Date(Date.parse(obj.created));
-                obj.body = escapeXSS(obj.body);
-                obj.nickname = escapeXSS(obj.nickname);
+                obj.body = escapeXss(obj.body);
+                obj.nickname = escapeXss(obj.nickname);
 
                 html += `
                     <div>
-                      <strong>#${total - index}. </strong>
                       <strong>${obj.nickname}</strong>
-                      <span>(${ipList[0]}.${ipList[1]})</span>
-                      <span>${created.getFullYear()}-${String(created.getMonth() + 1).padStart(2, '0')}-${String(created.getDate()).padStart(2, '0')} ${String(created.getHours()).padStart(2, '0')}:${String(created.getMinutes()).padStart(2, '0')}:${String(created.getSeconds()).padStart(2, '0')}</span>
-                      <button type="button" onclick="deleteComment(${obj.id})">삭제</button>
-                      <br>
-                      <p style="line-break: anywhere; white-space: pre-line;" >${obj.body}</p>
+                      <span class="date">${created.getFullYear()}-${String(created.getMonth() + 1).padStart(2, '0')}-${String(created.getDate()).padStart(2, '0')} ${String(created.getHours()).padStart(2, '0')}:${String(created.getMinutes()).padStart(2, '0')}:${String(created.getSeconds()).padStart(2, '0')}</span>
+                      <button type="button" onclick="deleteComment(${obj.id})" style="float: right;">삭제</button>
+                      <p class="comment-body">${obj.body}</p>
+                    </div>
                 `;
-
-                if (document.getElementById('commentList').innerHTML.trim().length > 0) {
-                    html += `<hr>`;
-                }
-                html += `</div>`;
             });
 
             document.getElementById('commentList').innerHTML = html;
@@ -96,7 +87,7 @@ function deleteComment(commentId) {
         }
         throw Error('비밀번호가 올바르지 않습니다.');
     }).then(() => {
-        reload();
+        void reload();
     }).catch(e => {
         alert(e.message);
     })
