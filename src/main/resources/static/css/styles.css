@@ -127,14 +127,14 @@ textarea:focus, input:focus {
 .song-elem {
     display: inline-block;
     vertical-align: top;
-    width: 230px;
+    width: 210px;
     padding: 10px;
 }
 .song-thumb {
     width: 192px;
     height: 106px;
     overflow: hidden;
-    margin: 10px auto 10px auto;
+    margin: 10px auto;
     transition: transform .2s;
 }
 .song-thumb img {
@@ -163,6 +163,18 @@ textarea:focus, input:focus {
 }
 .creator-elem img:hover {
     transform: scale(1.05);
+}
+.creator-detail {
+    min-width: 350px;
+}
+.creator-detail img {
+    width: 260px;
+    height: 260px;
+    display: block;
+    margin: 20px auto;
+}
+.creator-song {
+
 }
 
 .fit-rest {
