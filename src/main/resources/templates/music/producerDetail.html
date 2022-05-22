@@ -4,21 +4,24 @@
       layout:decorate="~{music/layout/default_layout}">
 
 <th:block layout:fragment="content">
-  <div style="display: inline-block; width: 400px;">
-    <h1>작곡가 정보</h1>
-    <img th:src="${producer.thumbnail}" data-thumbnail="/static/images/no-image.png" onerror="this.src = this.getAttribute('data-thumbnail');" width="260" height="260" style="display: block; margin: 20px auto 20px auto;">
-
-    <strong>이름: </strong><span th:text="${producer.name + ' (' + producer.nameKorean + ')'}"></span><br>
-  </div>
-
-  <div style="display: inline-block; vertical-align: top; margin-left: 20px; width: auto;">
-    <h1>만든 노래들</h1>
-    <div th:each="song: ${songs}" style="display: inline-block; text-align: center;">
-      <div style="width:192px; height:106px; overflow:hidden; margin: 10px auto 10px auto;">
-        <a th:href="@{'/music/song/' + ${song.id}}">
-          <img th:if="${song.isYoutube()}" th:src="${song.thumbnailUrl}" alt="song-thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
-          <img th:if="${!song.isYoutube()}" th:src="${song.thumbnailUrl} + '.L'" th:data-thumbnail="${song.thumbnailUrl}" onerror="this.src = this.getAttribute('data-thumbnail');" alt="song-thumbnail" style="width:192px; height:144px; margin: -19px 0 -19px 0;">
-        </a>
+  <div class="row-container">
+    <div class="item creator-detail">
+      <h1>작곡가 정보</h1>
+      <img th:src="${producer.thumbnail}" data-thumbnail="/static/images/no-image.png" onerror="this.src = this.getAttribute('data-thumbnail');">
+      <ul>
+        <li><strong>이름: </strong><span th:text="${producer.name + ' (' + producer.nameKorean + ')'}"></span></li>
+        <li><strong>노래 수: </strong><span th:text="${songs.size}"></span></li>
+      </ul>
+    </div>
+    <div class="item creator-song">
+      <h1>만든 노래들</h1>
+      <div class="song-elem" th:each="song: ${songs}" >
+        <div class="song-thumb">
+          <a th:href="@{'/music/song/' + ${song.id}}">
+            <img th:if="${song.isYoutube()}" th:src="${song.thumbnailUrl}" alt="song-thumbnail">
+            <img th:if="${!song.isYoutube()}" th:src="${song.thumbnailUrl} + '.L'" th:data-thumbnail="${song.thumbnailUrl}" onerror="this.src = this.getAttribute('data-thumbnail');" alt="song-thumbnail">
+          </a>
+        </div>
       </div>
     </div>
   </div>
