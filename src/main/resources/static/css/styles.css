@@ -32,6 +32,12 @@ h1 {
     text-underline-position: under;
     text-decoration-style: double;
 }
+h2 {
+    font-weight: bold;
+    text-decoration: solid underline #d70000 2px;
+    text-underline-position: under;
+    text-decoration-style: dashed;
+}
 textarea:focus, input:focus {
     outline: none;
 }
@@ -324,4 +330,26 @@ textarea:focus, input:focus {
     to {
         transform:rotate(-720deg);
     }
+}
+
+.space-evenly {
+    justify-content: space-evenly;
+}
+.no-border {
+    border: 0;
+}
+
+.admin .item {
+    width: 400px;
+}
+.admin input {
+    box-sizing: border-box;
+    padding: 3px 10px;
+    border: 2px solid #d70000;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 15px;
+}
+.admin input + input {
+    border-top: 0;
 }

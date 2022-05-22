@@ -4,36 +4,49 @@
       layout:decorate="~{music/layout/default_layout}">
 
 <th:block layout:fragment="content">
-  <h1>관리 페이지</h1>
-
-  <h2>가수 추가</h2>
-  <form method="post" action="/music/admin/singer" enctype="multipart/form-data">
-    <input type="text" name="name" placeholder="영어 이름"><br>
-    <input type="text" name="nameKorean" placeholder="한글 이름"><br>
-    <input type="text" name="youtubeUrl" placeholder="유튜브 url (옵션)"><br>
-    <input type="text" name="nicovideoUrl" placeholder="니코동 url (옵션)"><br>
-    보컬로이드인가요? <input type="checkbox" name="isRobot"><br>
-    썸네일 선택 (160x160) <input type="file" name="file"><br>
-    <input type="submit">
-  </form>
-
-  <h2>작곡가 추가</h2>
-  <form method="post" action="/music/admin/producer" enctype="multipart/form-data">
-    <input type="text" name="name" placeholder="영어 이름"><br>
-    <input type="text" name="nameKorean" placeholder="한글 이름"><br>
-    썸네일 선택 (160x160) <input type="file" name="file"><br>
-    <input type="submit">
-  </form>
-
-  <h2>노래 추가</h2>
-  <form method="post" action="/music/admin/song">
-    <input type="text" name="parentId" placeholder="부모 id"><br>
-    <input type="text" name="url" placeholder="url 주소"><br>
-    <input type="text" name="titleKorean" placeholder="한글 제목"><br>
-    <input type="text" name="singerIds" placeholder="example: 1,2"><br>
-    <input type="text" name="producerIds" placeholder="example: 1,2"><br>
-    <input type="submit">
-  </form>
+  <div class="col-container">
+    <div class="item">
+      <h1>관리 페이지</h1>
+      <p>
+        Reimu의, Reimu에 의한, Reimu를 위한 페이지입니다.
+        <br>일반적으로 이 페이지를 볼 수 있는 사람은 Reimu 외에 없습니다.
+      </p>
+    </div>
+    <div class="row-container space-evenly admin">
+      <div class="item">
+        <h2>가수 추가</h2>
+        <form class="col-container" method="post" action="/music/admin/singer" enctype="multipart/form-data">
+          <input type="text" name="name" placeholder="영어 이름">
+          <input type="text" name="nameKorean" placeholder="한글 이름">
+          <input type="text" name="youtubeUrl" placeholder="유튜브 url (옵션)">
+          <input type="text" name="nicovideoUrl" placeholder="니코동 url (옵션)">
+          <span>보컬로이드인가요? <input type="checkbox" name="isRobot"></span>
+          <span>썸네일 선택 (160x160) <input type="file" name="file" style="border: 0;"></span>
+          <input type="submit" style="border: 0;">
+        </form>
+      </div>
+      <div class="item">
+        <h2>작곡가 추가</h2>
+        <form class="col-container" method="post" action="/music/admin/producer" enctype="multipart/form-data">
+          <input type="text" name="name" placeholder="영어 이름">
+          <input type="text" name="nameKorean" placeholder="한글 이름">
+          <span>썸네일 선택 (160x160) <input type="file" name="file" style="border: 0;"></span>
+          <input type="submit" style="border: 0;">
+        </form>
+      </div>
+      <div class="item">
+        <h2>노래 추가</h2>
+        <form class="col-container" method="post" action="/music/admin/song">
+          <input type="text" name="parentId" placeholder="부모 id">
+          <input type="text" name="url" placeholder="url 주소">
+          <input type="text" name="titleKorean" placeholder="한글 제목">
+          <input type="text" name="singerIds" placeholder="가수 아이디 example: 1,2">
+          <input type="text" name="producerIds" placeholder="작곡가 아이디 example: 1,2">
+          <input type="submit" style="border: 0;">
+        </form>
+      </div>
+    </div>
+  </div>
 </th:block>
 
 </html>
