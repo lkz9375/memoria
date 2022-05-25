@@ -7,15 +7,26 @@
   <div class="col-container">
     <div class="item">
       <h1>요약</h1>
-      <p th:with="day = ${length / 86400}, hour = ${length % 86400 / 3600}"
+      <p th:with="length = ${metadata.totalLength}, day = ${length / 86400}, hour = ${length % 86400 / 3600}"
         th:utext="
-        '현재 <strong>' + ${songList.size()} + '개</strong>의 노래가 있습니다.'
+        '현재 <strong>' + ${metadata.count} + '개</strong>의 노래가 있습니다.'
         + '<br>모두 듣는다면 <strong>' + ${day == 0 ? '' : day + '일 '} + ${hour == 0 ? '' : hour + '시간 '} + ${length % 3600 / 60} + '분 ' + ${length % 60} + '초</strong>가 소요됩니다.'
       "></p>
     </div>
     <div class="item">
-      <h1>노래 목록</h1>
-      <div th:each="song: ${songList}" class="song-elem">
+      <div class="row-container vertical-center">
+        <h1>노래 목록</h1>
+        <div class="pagination">
+          <a th:href="@{|/music/songs?page=1&size=${size}|}" class="left-arrow">&laquo;</a>
+          <th:block th:each="num : ${#numbers.sequence(songPage.number - 5, songPage.number + 4)}">
+            <th:block th:if="${0 <= num && num < songPage.totalPages}">
+              <a th:href="@{|/music/songs?page=${num + 1}&size=${size}|}" th:class="${num == songPage.number ? 'active' : 'page'}" th:text="${num + 1}"></a>
+            </th:block>
+          </th:block>
+          <a th:href="@{|/music/songs?page=${songPage.totalPages}&size=${size}|}" class="right-arrow">&raquo;</a>
+        </div>
+      </div>
+      <div th:each="song: ${songPage}" class="song-elem">
         <div class="song-thumb">
           <a th:href="@{'/music/song/' + ${song.id}}">
             <img th:if="${song.isYoutube()}" th:src="${song.thumbnailUrl}" alt="song-thumbnail">

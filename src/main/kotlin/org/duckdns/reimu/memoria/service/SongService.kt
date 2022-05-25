@@ -3,12 +3,15 @@ package org.duckdns.reimu.memoria.service
 import org.duckdns.reimu.memoria.entity.Song
 import org.duckdns.reimu.memoria.entity.SongProducer
 import org.duckdns.reimu.memoria.entity.SongSinger
+import org.duckdns.reimu.memoria.model.SongMetadataDto
 import org.duckdns.reimu.memoria.model.param.AddSongParam
 import org.duckdns.reimu.memoria.model.param.UpdateSongParam
 import org.duckdns.reimu.memoria.repository.SongProducerRepository
 import org.duckdns.reimu.memoria.repository.SongRepository
 import org.duckdns.reimu.memoria.repository.SongSingerRepository
 import org.duckdns.reimu.memoria.util.RequestUtils
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import javax.persistence.EntityNotFoundException
@@ -22,6 +25,14 @@ class SongService(
 ) {
     fun getList(): List<Song> {
         return songRepository.findAllByOrderByIdDesc()
+    }
+
+    fun getPage(pageable: Pageable): Page<Song> {
+        return songRepository.findAllByOrderByIdDesc(pageable)
+    }
+
+    fun getMetadata(): SongMetadataDto {
+        return songRepository.calcMetadata()
     }
 
     fun getListBySingerId(singerId: Long): List<Song> {

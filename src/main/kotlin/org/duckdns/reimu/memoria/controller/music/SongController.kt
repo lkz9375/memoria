@@ -4,11 +4,13 @@ import org.duckdns.reimu.memoria.service.CommentService
 import org.duckdns.reimu.memoria.service.ProducerService
 import org.duckdns.reimu.memoria.service.SongService
 import org.duckdns.reimu.memoria.service.SingerService
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 
 @Controller
 @RequestMapping("/music")
@@ -19,14 +21,19 @@ class SongController(
     private val producerService: ProducerService,
 ) {
     @GetMapping("/songs")
-    fun getSongList(model: Model): String {
-        val songList = songService.getList()
-        val totalLength = songList.sumOf { music -> music.length }
+    fun getSongList(
+        @RequestParam(name = "page", required = false, defaultValue = "1") page: Int,
+        @RequestParam(name = "size", required = false, defaultValue = "24") size: Int,
+        model: Model
+    ): String {
+        val songPage = songService.getPage(PageRequest.of(page - 1, size))
+        val metadata = songService.getMetadata()
 
         model.addAttribute("title", "Songs")
         model.addAttribute("active", 2)
-        model.addAttribute("songList", songList)
-        model.addAttribute("length", totalLength)
+        model.addAttribute("songPage", songPage)
+        model.addAttribute("metadata", metadata)
+        model.addAttribute("size", size)
 
         return "music/songs"
     }

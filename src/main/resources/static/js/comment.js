@@ -69,7 +69,7 @@ async function reload() {
 
             if (html === '') {
                 html = `
-                    <div class="align-center" style="height: 300px">
+                    <div class="vertical-center horizontal-center" style="height: 300px">
                       <p class="no-comment"></p>
                     </div>
                 `

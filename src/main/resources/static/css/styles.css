@@ -258,6 +258,35 @@ textarea:focus, input:focus {
     color: #888888;
 }
 
+.pagination {
+    margin-left: 30px;
+    display: inline-block;
+}
+.pagination a {
+    position: relative;
+    color: #000000;
+    float: left;
+    padding: 6px 12px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+.pagination a.active, .pagination a.active:hover {
+    color: #d70000;
+    text-decoration: underline;
+    font-weight: bold;
+}
+.pagination a.page:hover {
+    color: #000000;
+    text-decoration: none;
+    top: -3px;
+}
+.pagination a.left-arrow:hover {
+    text-decoration: none;
+}
+.pagination a.right-arrow:hover {
+    text-decoration: none;
+}
+
 .tooltip {
     position: relative;
     display: inline-block;
@@ -290,11 +319,13 @@ textarea:focus, input:focus {
     border-color: transparent black transparent transparent;
 }
 
-.align-center {
+.vertical-center {
+    display: flex;
+    align-items: center;
+}
+.horizontal-center {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 0 auto;
 }
 
 .yin-yang {
